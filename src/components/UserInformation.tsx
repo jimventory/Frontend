@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
+import '../stylesheets/UserInformation.css';
 
 export default function UserInformation() {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -12,9 +13,8 @@ export default function UserInformation() {
 
     return (
         ((isAuthenticated) && (
-            <div>
-                <h4>{user?.name}</h4>
-                <LogoutButton/>
+            <div id="userInfoContainer">
+                <h4>{user?.name?.split('@')[0]}</h4>
             </div>
         
         )) || (

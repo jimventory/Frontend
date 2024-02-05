@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../stylesheets/Navbar.css';
+import UserInformation from './UserInformation';
 
 export default function Navbar() {
     return (
@@ -8,7 +9,7 @@ export default function Navbar() {
             <ul>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/register">Register Business</Link></li>
-                <li><Link to="manageUsers">User Management</Link></li>
+                <UserInformation/>
             </ul>
         </nav>
     );

@@ -15,7 +15,8 @@ root.render(
     <Router>
         <Auth0Provider
             domain="dev-85peonfew8syv3it.us.auth0.com"
-            clientId="1GlIM7cmxoJUlF6O5jzLTkpAlk0uxY3Y"
+            clientId="FdVf3LoTNyrGbRR5wSdZnIDrAo72jUS1"
+            authorizationParams={{redirect_uri:window.location.origin}}
         >
             <App />
         </Auth0Provider>
