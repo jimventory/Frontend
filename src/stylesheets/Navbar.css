@@ -1,0 +1,27 @@
+
+#navbar {
+    display: flex;
+    height: 50px;
+    background-color: #23022E;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+}
+
+#navbar h1 {
+    margin-left: 25px;
+}
+
+#navbar ul {
+    margin-right: 25px;
+    gap: 25px;
+    list-style: none;
+    display: flex;
+}
+
+#navbar li a,
+#navbar a h1 {
+    text-decoration: none;
+    color: white;
+}
