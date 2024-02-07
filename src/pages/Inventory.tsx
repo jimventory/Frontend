@@ -68,7 +68,7 @@ export default function InventoryManagement() {
             <input
               type="number"
               value={itemPrice}
-              onChange={(e) => setItemPrice(parseInt(e.target.value))}
+              onChange={(e) => setItemPrice(parseFloat(e.target.value))}
             />
           </label>
         </div>
