@@ -9,6 +9,7 @@ export default function Navbar() {
             <ul>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/register">Register Business</Link></li>
+                <li><Link to="/inventory">Inventory</Link></li>
                 <UserInformation/>
             </ul>
         </nav>
