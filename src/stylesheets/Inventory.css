@@ -1,21 +1,29 @@
 
-/* Inventory Container */
+/* Containers */
 .inventory-container {
     display: flex;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+
+.inventory-list-container {
+    width: 25%;
+    padding-right: 10px;
+    box-sizing: border-box;
   }
   
   /* Inventory List */
   .inventory-list {
-    width: 50%;
+    /* width: 50%; */
     max-width: 300px;
-    padding: 20px;
+    padding: 15px;
     box-sizing: border-box;
     background-color: #f3f3f3;
     border-radius: 10px;
   }
 
   .inventory-list h1 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .inventory-list ul {
@@ -38,6 +46,7 @@
   /* Input and Button */
   .input-item-name {
     margin-right: 10px;
+    max-width: calc(100%);
   }
   
   .btn-add-item {
@@ -46,6 +55,7 @@
   
   /* Item Details */
   .item-details {
+    flex-grow: 1;
     width: 50%;
     padding: 20px;
     box-sizing: border-box;
@@ -58,5 +68,22 @@
   
   .btn-save-item {
     margin-top: 10px;
+  }
+  
+/* Sales maybe */
+.sales {
+    width: 30%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .sales h1 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .sales p {
+    font-size: 16px;
+    color: #666;
   }
   

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import '../stylesheets/Inventory.css';
+import React, { useState } from "react";
+import "../stylesheets/Inventory.css";
 
 export default function InventoryManagement() {
-  const [items, setItems] = useState<string[]>(['Item 1', 'Item 2', 'Item 3']); // Hardcoded test values
+  const [items, setItems] = useState<string[]>(["Item 1", "Item 2", "Item 3"]); // Hardcoded test values
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const [itemName, setItemName] = useState<string>('');
+  const [itemName, setItemName] = useState<string>("");
   const [itemPrice, setItemPrice] = useState<number>(0);
   const [itemQuantity, setItemQuantity] = useState<number>(0);
 
@@ -13,9 +13,9 @@ export default function InventoryManagement() {
   };
 
   const handleAddItem = () => {
-    if (itemName.trim() !== '') {
+    if (itemName.trim() !== "") {
       setItems([...items, itemName]);
-      setItemName('');
+      setItemName("");
       // Reset price and quantity when adding a new item
       setItemPrice(0);
       setItemQuantity(0);
@@ -32,33 +32,44 @@ export default function InventoryManagement() {
     }
   };
 
+  const handleDeleteItem = () => {
+    if (selectedItem) {
+      // back end integration to go here to save item
+      alert("You sure?")
+    }
+  };
+
   return (
-    <div className='inventory-container'>
-      <div className='inventory-list'>
+    <div className="inventory-container">
+      <div className="inventory-list-container">
         <h1>Inventory List</h1>
-        <ul>
-          {items.map((item, index) => (
-            <li key={index} onClick={() => handleItemClick(item)}>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div>
-          <input
-            type="text"
-            value={itemName}
-            onChange={handleInputChange}
-            placeholder="Enter Item Name"
-            className='input-item-name'
-          />
-          <button onClick={handleAddItem} className='btn-add-item'>Add Item</button>
+        <div className="inventory-list">
+          <ul>
+            {items.map((item, index) => (
+              <li key={index} onClick={() => handleItemClick(item)}>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div>
+            <input
+              type="text"
+              value={itemName}
+              onChange={handleInputChange}
+              placeholder="Enter Item Name"
+              className="input-item-name"
+            />
+            <button onClick={handleAddItem} className="btn-add-item">
+              Add Item
+            </button>
+          </div>
         </div>
       </div>
-      <div className='item-details'>
+      <div className="item-details">
         <h1>Item Details</h1>
         {selectedItem && <p>Selected Item: {selectedItem}</p>}
         <div>
-          <h2>Item Picture</h2>
+          <p>About?:</p>
           <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
         </div>
         <div>
@@ -73,7 +84,7 @@ export default function InventoryManagement() {
               type="number"
               value={itemPrice}
               onChange={(e) => setItemPrice(parseFloat(e.target.value))}
-              className='input-item-price'
+              className="input-item-price"
             />
           </label>
         </div>
@@ -84,12 +95,20 @@ export default function InventoryManagement() {
               type="number"
               value={itemQuantity}
               onChange={(e) => setItemQuantity(parseInt(e.target.value))}
-              className='input-item-quantity'
+              className="input-item-quantity"
             />
           </label>
         </div>
-        <button onClick={handleSaveItem} className='btn-save-item'>Save Item</button>
+        <button onClick={handleSaveItem} className="btn-save-item">
+          Save Item
+        </button>
+        <button onClick={handleDeleteItem} className="btn-save-item">
+          Delete Item
+        </button>
+      </div>
+      <div className="sales">
+        <h3>Sales?</h3>
       </div>
     </div>
-    );
-  }
+  );
+}
