@@ -2,11 +2,11 @@ import React, { useState, ChangeEvent    } from 'react';
 
 
 export default function InventoryManagement() {
-    const [items, setItems] = useState<string[]>(['Item 1', 'Item 2', 'Item 3']); // Hardcoded test values
+  const [items, setItems] = useState<string[]>(['Item 1', 'Item 2', 'Item 3']); // Hardcoded test values
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [itemName, setItemName] = useState<string>('');
-  const [itemPrice, setItemPrice] = useState<number>(0); // Added state for item price
-  const [itemQuantity, setItemQuantity] = useState<number>(0); // Added state for item quantity
+  const [itemPrice, setItemPrice] = useState<number>(0);
+  const [itemQuantity, setItemQuantity] = useState<number>(0);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
@@ -24,6 +24,13 @@ export default function InventoryManagement() {
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
+  };
+
+  const handleSaveItem = () => {
+    // Check if an item is selected
+    if (selectedItem) {
+      // back end integration to go here to save item
+    }
   };
 
   return (
@@ -50,18 +57,15 @@ export default function InventoryManagement() {
       <div style={{ width: '50%' }}>
         <h1>Item Details</h1>
         {selectedItem && <p>Selected Item: {selectedItem}</p>}
-        {/* Display additional item details here */}
         <div>
           <h2>Item Picture</h2>
-          {/* Placeholder for item picture */}
           <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
         </div>
         <div>
           <h3>ID: </h3>
-          <h3>Price: {itemPrice}</h3> {/* Display item price */}
-          <h3>Quantity: {itemQuantity}</h3> {/* Display item quantity */}
+          <h3>Price: {itemPrice}</h3>
+          <h3>Quantity: {itemQuantity}</h3>
         </div>
-        {/* Input fields for price and quantity */}
         <div>
           <label>
             Price:
@@ -82,6 +86,7 @@ export default function InventoryManagement() {
             />
           </label>
         </div>
+        <button onClick={handleSaveItem}>Save Item</button>
       </div>
     </div>
   );
