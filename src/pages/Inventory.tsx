@@ -5,11 +5,16 @@ export default function InventoryManagement() {
   const [items, setItems] = useState<string[]>(["Item 1", "Item 2", "Item 3"]); // Hardcoded test values
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [itemName, setItemName] = useState<string>("");
+  const [itemAbout, setItemAbout] = useState<string>("");
   const [itemPrice, setItemPrice] = useState<number>(0);
   const [itemQuantity, setItemQuantity] = useState<number>(0);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
+  };
+
+  const handleInputAboutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setItemAbout(event.target.value);
   };
 
   const handleAddItem = () => {
@@ -55,7 +60,7 @@ export default function InventoryManagement() {
             <input
               type="text"
               value={itemName}
-              onChange={handleInputChange}
+              onChange={handleInputNameChange}
               placeholder="Enter Item Name"
               className="input-item-name"
             />
@@ -73,8 +78,8 @@ export default function InventoryManagement() {
             <p>About?:</p>
             <input
                 type="text"
-                value={itemName}
-                onChange={handleInputChange}
+                value={itemAbout}
+                onChange={handleInputAboutChange}
                 placeholder="Enter Item Info"
                 className="input-item-about"
               />
