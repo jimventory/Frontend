@@ -24,16 +24,16 @@
     border-radius: 10px;
 }
 
-.inventory-list h1 {
+#inventory-list h1 {
     margin-bottom: 10px;
 }
 
-.inventory-list ul {
+#inventory-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-.inventory-list li {
+#inventory-list li {
     padding: 10px;
     margin-bottom: 10px;
     background-color: #ffffff;
@@ -41,7 +41,7 @@
     cursor: pointer;
 }
 
-.inventory-list li:hover {
+#inventory-list li:hover {
     background-color: #e0e0e0;
 }
   
@@ -82,12 +82,12 @@
     /* background-color: #f3f3f3; */
 }
 
-.sales h1 {
+#sales h1 {
     font-size: 24px;
     color: #333;
 }
 
-.sales p {
+#sales p {
     font-size: 16px;
     color: #666;
 }
