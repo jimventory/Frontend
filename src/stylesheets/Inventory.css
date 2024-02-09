@@ -1,0 +1,38 @@
+/* styles.css */
+
+/* Inventory Container */
+.inventory-container {
+    display: flex;
+  }
+  
+  /* Inventory List */
+  .inventory-list {
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .input-item-name {
+    margin-right: 10px;
+  }
+  
+  .btn-add-item {
+    margin-top: 10px;
+  }
+  
+  /* Item Details */
+  .item-details {
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .input-item-price,
+  .input-item-quantity {
+    margin-bottom: 10px;
+  }
+  
+  .btn-save-item {
+    margin-top: 10px;
+  }
+  

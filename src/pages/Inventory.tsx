@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent    } from 'react';
-
+import React, { useState } from 'react';
+import '../stylesheets/Inventory.css';
 
 export default function InventoryManagement() {
   const [items, setItems] = useState<string[]>(['Item 1', 'Item 2', 'Item 3']); // Hardcoded test values
@@ -27,15 +27,14 @@ export default function InventoryManagement() {
   };
 
   const handleSaveItem = () => {
-    // Check if an item is selected
     if (selectedItem) {
       // back end integration to go here to save item
     }
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ width: '50%' }}>
+    <div className='inventory-container'>
+      <div className='inventory-list'>
         <h1>Inventory List</h1>
         <ul>
           {items.map((item, index) => (
@@ -50,11 +49,12 @@ export default function InventoryManagement() {
             value={itemName}
             onChange={handleInputChange}
             placeholder="Enter Item Name"
+            className='input-item-name'
           />
-          <button onClick={handleAddItem}>Add Item</button>
+          <button onClick={handleAddItem} className='btn-add-item'>Add Item</button>
         </div>
       </div>
-      <div style={{ width: '50%' }}>
+      <div className='item-details'>
         <h1>Item Details</h1>
         {selectedItem && <p>Selected Item: {selectedItem}</p>}
         <div>
@@ -73,6 +73,7 @@ export default function InventoryManagement() {
               type="number"
               value={itemPrice}
               onChange={(e) => setItemPrice(parseFloat(e.target.value))}
+              className='input-item-price'
             />
           </label>
         </div>
@@ -83,11 +84,12 @@ export default function InventoryManagement() {
               type="number"
               value={itemQuantity}
               onChange={(e) => setItemQuantity(parseInt(e.target.value))}
+              className='input-item-quantity'
             />
           </label>
         </div>
-        <button onClick={handleSaveItem}>Save Item</button>
+        <button onClick={handleSaveItem} className='btn-save-item'>Save Item</button>
       </div>
     </div>
-  );
+    );
   }
