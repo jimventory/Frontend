@@ -42,8 +42,8 @@ export default function InventoryManagement() {
   return (
     <div className="inventory-container">
       <div className="inventory-list-container">
-        <h1>Inventory List</h1>
         <div className="inventory-list">
+          <h1>Inventory List</h1>
           <ul>
             {items.map((item, index) => (
               <li key={index} onClick={() => handleItemClick(item)}>
@@ -69,7 +69,16 @@ export default function InventoryManagement() {
         <h1>Item Details</h1>
         {selectedItem && <p>Selected Item: {selectedItem}</p>}
         <div>
-          <p>About?:</p>
+          <div>
+            <p>About?:</p>
+            <input
+                type="text"
+                value={itemName}
+                onChange={handleInputChange}
+                placeholder="Enter Item Info"
+                className="input-item-about"
+              />
+          </div>
           <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
         </div>
         <div>
