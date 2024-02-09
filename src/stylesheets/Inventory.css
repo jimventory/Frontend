@@ -1,5 +1,5 @@
 /* Containers */
-.inventory-container {
+#inventory-container {
     display: flex;
     align-items: flex-start;
     max-width: 100%;
@@ -7,7 +7,7 @@
 
 }
 
-.inventory-list-container {
+#inventory-list-container {
     width: 25%;
     padding-right: 10px;
     padding-left: 10px;
@@ -15,7 +15,7 @@
 }
   
   /* Inventory List */
-.inventory-list {
+#inventory-list {
     /* width: 50%; */
     max-width: calc(100%);
     padding: 15px;
@@ -51,12 +51,12 @@
     max-width: calc(100%);
 }
 
-.btn-add-item {
+#btn-add-item {
     margin-top: 10px;
 }
   
   /* Item Details */
-.item-details {
+#item-details {
     flex-grow: 1;
     width: 30%;
     padding: 20px;
@@ -69,12 +69,12 @@
     margin-bottom: 10px;
 }
 
-.btn-save-item {
+#btn-save-item {
     margin-top: 10px;
 }
   
 /* Sales maybe */
-.sales {
+#sales {
     width: 30%;
     padding-right: 10px;
     padding-left: 10px;

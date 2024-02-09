@@ -40,9 +40,9 @@ export default function InventoryManagement() {
   };
 
   return (
-    <div className="inventory-container">
-      <div className="inventory-list-container">
-        <div className="inventory-list">
+    <div id="inventory-container">
+      <div id="inventory-list-container">
+        <div id="inventory-list">
           <h1>Inventory List</h1>
           <ul>
             {items.map((item, index) => (
@@ -65,7 +65,7 @@ export default function InventoryManagement() {
           </div>
         </div>
       </div>
-      <div className="item-details">
+      <div id="item-details">
         <h1>Item Details</h1>
         {selectedItem && <p>Selected Item: {selectedItem}</p>}
         <div>
@@ -108,14 +108,14 @@ export default function InventoryManagement() {
             />
           </label>
         </div>
-        <button onClick={handleSaveItem} className="btn-save-item">
+        <button onClick={handleSaveItem} id="btn-save-item">
           Save Item
         </button>
-        <button onClick={handleDeleteItem} className="btn-save-item">
+        <button onClick={handleDeleteItem} id="btn-save-item">
           Delete Item
         </button>
       </div>
-      <div className="sales">
+      <div id="sales">
         <h3>Sales?</h3>
       </div>
     </div>
