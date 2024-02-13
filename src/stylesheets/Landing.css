@@ -1,8 +1,14 @@
+/*This is the style sheet for the landing page!
+It isn't done. But its close! I want to add
+a couple of simple graphics and stuff. */
+
 body {
   margin: 0;
   padding: 0;
   background-color: #000000;
   font-family: 'Montserrat', sans-serif;
+  /*background-image: url('../images/new_file.svg');
+  background-size: cover; /* Adjust as needed */
 }
 
 
@@ -13,7 +19,8 @@ body {
 }
 
 .big-letters {
-  font-size: 30px;
+  margin-top: 50px;
+  font-size: 230%;
 }
 
 .big-letters .first-letter {
@@ -21,14 +28,43 @@ body {
 }
 
 .bigger-letters {
+  margin-top: 20px;
   font-size: 35px;
+  font-weight: bold;
 }
 
 .bigger-letters .first-letter {
-  font-size: 43px; /* Increase the font size of the first letter */
+  font-size: 120%; /* Increase the font size of the first letter */
 }
 
 .big-logo {
   max-width: 100%; /* Set width as needed */
   height: auto; /* Maintain aspect ratio */
 }
+
+.landing-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.button {
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px 20px; /* Adjust padding as needed */
+  margin: 0 20px; /* Adjust margin between buttons */
+  font-size: 18px; /* Adjust font size as needed */
+  background-color: #573280; /* Button background */
+  color: #ADA8B6; /* text */
+  border: none;
+  cursor: pointer; /* Change cursor on hover */
+}
+
+.bottom-pic {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: auto;
+}
+

@@ -1,13 +1,10 @@
+/* Hello! You have found the landing page!
+I am not quite done, I want to make it ~10%
+cuter. and maybe less dramatic. */
+
 import React from "react";
 import "../stylesheets/Landing.css";
 import bigLogo from "../images/grayOnBlack.png";
-
-// Google Font link
-const link = document.createElement("link");
-link.href =
-  "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap";
-link.rel = "stylesheet";
-document.head.appendChild(link);
 
 const Landing = () => {
   return (
@@ -19,9 +16,22 @@ const Landing = () => {
         <span className="first-letter"> I</span>
         <span> N V E N T O R Y .</span>
       </div>
+      <div style={{ height: "20px" }}></div>{" "}
+      {/* Insert an empty div to create space */}
       <div className="bigger-letters">
         <span className="first-letter">S</span>
         <span> I M P L I F I E D .</span>
+      </div>
+      <div className="landing-buttons">
+        <button className="button">G E T&nbsp;&nbsp;S T A R T E D. </button>
+        <button className="button">L E A R N &nbsp;&nbsp;M O R E.</button>
+      </div>
+      <div>
+        <img
+          src={bigLogo}
+          className="bottom-pic"
+          alt="Shortened logo, S L"
+        ></img>
       </div>
     </div>
   );

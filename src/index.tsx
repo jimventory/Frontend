@@ -1,25 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Auth0Provider } from '@auth0/auth0-react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
+
+// Google Font link
+const link = document.createElement("link");
+link.href =
+  "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap";
+link.rel = "stylesheet";
+document.head.appendChild(link);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 root.render(
   <React.StrictMode>
     <Router>
-        <Auth0Provider
-            domain="dev-85peonfew8syv3it.us.auth0.com"
-            clientId="FdVf3LoTNyrGbRR5wSdZnIDrAo72jUS1"
-            authorizationParams={{redirect_uri:window.location.origin}}
-        >
-            <App />
-        </Auth0Provider>
+      <Auth0Provider
+        domain="dev-85peonfew8syv3it.us.auth0.com"
+        clientId="FdVf3LoTNyrGbRR5wSdZnIDrAo72jUS1"
+        authorizationParams={{ redirect_uri: window.location.origin }}
+      >
+        <App />
+      </Auth0Provider>
     </Router>
   </React.StrictMode>
 );
