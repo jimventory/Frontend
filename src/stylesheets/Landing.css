@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+.land  {
+  text-align: center;
+  color: #ADA8B6;
+  margin: 0;
+}
+
+.big-letters {
+  font-size: 30px;
+}
+
+.big-letters .first-letter {
+  font-size: 38px; /* Increase the font size of the first letter */
+}
+
+.bigger-letters {
+  font-size: 35px;
+}
+
+.bigger-letters .first-letter {
+  font-size: 43px; /* Increase the font size of the first letter */
+}
+
+.big-logo {
+  max-width: 100%; /* Set width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
