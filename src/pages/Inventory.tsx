@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "../stylesheets/Inventory.css";
 
 export default function InventoryManagement() {
-  const [items, setItems] = useState<string[]>(["Item 1", "Item 2", "Item 3"]); // Hardcoded test values
+  const [items, setItems] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [itemName, setItemName] = useState<string>("");
   const [itemAbout, setItemAbout] = useState<string>("");
-  const [itemPrice, setItemPrice] = useState<number>(0);
+  const [itemPrice, setItemPrice] = useState<number>(0.0);
   const [itemQuantity, setItemQuantity] = useState<number>(0);
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ export default function InventoryManagement() {
       setItems([...items, itemName]);
       setItemName("");
       // Reset price and quantity when adding a new item
-      setItemPrice(0);
+      setItemPrice(0.00);
       setItemQuantity(0);
     }
   };
@@ -33,14 +33,14 @@ export default function InventoryManagement() {
 
   const handleSaveItem = () => {
     if (selectedItem) {
-      // back end integration to go here to save item
+      // back end integration to save the item goes here
     }
   };
 
   const handleDeleteItem = () => {
     if (selectedItem) {
-      // back end integration to go here to save item
-      alert("You sure?")
+      // back end integration to delete the item goes here
+      alert("Are you sure you want to delete this item?");
     }
   };
 
@@ -75,14 +75,14 @@ export default function InventoryManagement() {
         {selectedItem && <p>Selected Item: {selectedItem}</p>}
         <div>
           <div>
-            <p>About?:</p>
+            <p>About:</p>
             <input
-                type="text"
-                value={itemAbout}
-                onChange={handleInputAboutChange}
-                placeholder="Enter Item Info"
-                className="input-item-about"
-              />
+              type="text"
+              value={itemAbout}
+              onChange={handleInputAboutChange}
+              placeholder="Enter Item Info"
+              className="input-item-about"
+            />
           </div>
           <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
         </div>
@@ -116,7 +116,7 @@ export default function InventoryManagement() {
         <button onClick={handleSaveItem} id="btn-save-item">
           Save Item
         </button>
-        <button onClick={handleDeleteItem} id="btn-save-item">
+        <button onClick={handleDeleteItem} id="btn-delete-item">
           Delete Item
         </button>
       </div>
