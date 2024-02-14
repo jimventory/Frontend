@@ -8,12 +8,13 @@ const generateRandomId = () => {
 
 export default function InventoryManagement() {
   const [items, setItems] = useState<Item[]>([]);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [itemName, setItemName] = useState<string>("");
   const [itemAbout, setItemAbout] = useState<string>("");
   const [itemPrice, setItemPrice] = useState<number>(0.0);
   const [itemQuantity, setItemQuantity] = useState<number>(0);
-  const [itemId, setItemId] = useState<number | null>(null); 
+  const [itemId, setItemId] = useState<number | null>(null);
+  
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
@@ -61,13 +62,41 @@ export default function InventoryManagement() {
   
 
   const handleItemClick = (item: Item) => {
-    setSelectedItem(item.name);
+    setSelectedItem(item);
     setItemId(item.id);
+    setItemName(item.name);
+    setItemAbout(item.about);
+    setItemPrice(item.price);
+    setItemQuantity(item.quantity)
   };
 
-  const handleSaveItem = () => {
+  const handleSaveItem = async () => {
     if (selectedItem) {
-      // back end integration to save the item goes here
+      try {
+        const updatedItem = {
+          id: selectedItem.id,
+          price: itemPrice,
+          quantity: itemQuantity,
+        };
+
+        const response = await fetch(`https://localhost:7079/api/inventory/update/`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedItem),
+        });
+
+        if (response.ok) {
+          // Update item in the local state
+          setItems(items.map(item => item.id === selectedItem.id ? { ...item, price: itemPrice, quantity: itemQuantity } : item));
+          alert('Item saved successfully!');
+        } else {
+          console.error('Failed to save item:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error saving item:', error);
+      }
     }
   };
 
@@ -120,7 +149,7 @@ export default function InventoryManagement() {
       </div>
       <div id="item-details">
         <h1>Item Details</h1>
-        {selectedItem && <p>Selected Item: {selectedItem}</p>}
+        {selectedItem && <p>Selected Item: {selectedItem.name}</p>}
         <div>
           <div>
             <p>About:</p>
