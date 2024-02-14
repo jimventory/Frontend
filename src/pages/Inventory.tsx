@@ -75,12 +75,13 @@ export default function InventoryManagement() {
     if (selectedItem) {
       if (window.confirm("Are you sure you want to delete this item?")) {
         try {
-          const response = await fetch(`http://localhost:5000/api/inventory/remove/${selectedItem}`, {
+          const response = await fetch(`https://localhost:7079/api/inventory/remove/${itemId}`, {
             method: 'DELETE',
           });
           if (response.ok) {
-            setItems(items.filter(item => item.name !== selectedItem));
+            setItems(items.filter(item => item.id !== itemId));
             setSelectedItem(null);
+            setItemId(null); // Reset itemId
           } else {
             console.error('Failed to delete item:', response.statusText);
           }
