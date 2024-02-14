@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "../stylesheets/Inventory.css";
 
+// used for temp unique item ids
+const generateRandomId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
+
 export default function InventoryManagement() {
-  const [items, setItems] = useState<string[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [itemName, setItemName] = useState<string>("");
   const [itemAbout, setItemAbout] = useState<string>("");
   const [itemPrice, setItemPrice] = useState<number>(0.0);
   const [itemQuantity, setItemQuantity] = useState<number>(0);
+  const [itemId, setItemId] = useState<number | null>(null); 
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
@@ -22,10 +28,11 @@ export default function InventoryManagement() {
       try {
         const newItem = {
           name: itemName,
+          id: generateRandomId(),
           about: itemAbout,
           price: itemPrice,
           quantity: itemQuantity,
-          businessId: 10, // Set BusinessId to 10
+          businessId: 10, // Set BusinessId to 10, just something random I picked till we get that part set up more
         };
   
         const response = await fetch('https://localhost:7079/api/inventory/add', {
@@ -38,7 +45,7 @@ export default function InventoryManagement() {
   
         if (response.ok) {
           const createdItem = await response.json();
-          setItems([...items, createdItem.name]);
+          setItems(prevItems => [...prevItems, createdItem]);
           setItemName("");
           setItemAbout("");
           setItemPrice(0);
@@ -53,8 +60,9 @@ export default function InventoryManagement() {
   };
   
 
-  const handleItemClick = (item: string) => {
-    setSelectedItem(item);
+  const handleItemClick = (item: Item) => {
+    setSelectedItem(item.name);
+    setItemId(item.id);
   };
 
   const handleSaveItem = () => {
@@ -71,7 +79,7 @@ export default function InventoryManagement() {
             method: 'DELETE',
           });
           if (response.ok) {
-            setItems(items.filter(item => item !== selectedItem));
+            setItems(items.filter(item => item.name !== selectedItem));
             setSelectedItem(null);
           } else {
             console.error('Failed to delete item:', response.statusText);
@@ -91,7 +99,7 @@ export default function InventoryManagement() {
           <ul>
             {items.map((item, index) => (
               <li key={index} onClick={() => handleItemClick(item)}>
-                {item}
+                {item.name}
               </li>
             ))}
           </ul>
@@ -115,6 +123,7 @@ export default function InventoryManagement() {
         <div>
           <div>
             <p>About:</p>
+            <p>ID: {itemId}</p>
             <input
               type="text"
               value={itemAbout}
@@ -126,7 +135,6 @@ export default function InventoryManagement() {
           <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
         </div>
         <div>
-          <h3>ID: </h3>
           <h3>Price: {itemPrice}</h3>
           <h3>Quantity: {itemQuantity}</h3>
         </div>
