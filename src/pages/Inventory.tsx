@@ -17,15 +17,41 @@ export default function InventoryManagement() {
     setItemAbout(event.target.value);
   };
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
     if (itemName.trim() !== "") {
-      setItems([...items, itemName]);
-      setItemName("");
-      // Reset price and quantity when adding a new item
-      setItemPrice(0.00);
-      setItemQuantity(0);
+      try {
+        const newItem = {
+          name: itemName,
+          about: itemAbout,
+          price: itemPrice,
+          quantity: itemQuantity,
+          businessId: 10, // Set BusinessId to 10
+        };
+  
+        const response = await fetch('https://localhost:7079/api/inventory/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newItem),
+        });
+  
+        if (response.ok) {
+          const createdItem = await response.json();
+          setItems([...items, createdItem.name]);
+          setItemName("");
+          setItemAbout("");
+          setItemPrice(0);
+          setItemQuantity(0);
+        } else {
+          console.error('Failed to add item:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding item:', error);
+      }
     }
   };
+  
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
@@ -37,10 +63,23 @@ export default function InventoryManagement() {
     }
   };
 
-  const handleDeleteItem = () => {
+  const handleDeleteItem = async () => {
     if (selectedItem) {
-      // back end integration to delete the item goes here
-      alert("Are you sure you want to delete this item?");
+      if (window.confirm("Are you sure you want to delete this item?")) {
+        try {
+          const response = await fetch(`http://localhost:5000/api/inventory/remove/${selectedItem}`, {
+            method: 'DELETE',
+          });
+          if (response.ok) {
+            setItems(items.filter(item => item !== selectedItem));
+            setSelectedItem(null);
+          } else {
+            console.error('Failed to delete item:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error deleting item:', error);
+        }
+      }
     }
   };
 
@@ -125,4 +164,12 @@ export default function InventoryManagement() {
       </div>
     </div>
   );
+}
+
+interface Item {
+  id: number;
+  name: string;
+  about: string;
+  price: number;
+  quantity: number;
 }
