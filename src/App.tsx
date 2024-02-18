@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import About from './pages/About';
 import BusinessRegistration from './pages/BusinessRegistration';
 import Landing from './pages/Landing';
+import Inventory from './pages/Inventory';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/" Component={Landing} />
                     <Route path="/register" Component={BusinessRegistration} />
                     <Route path="/about" Component={About} />
+                    <Route path="/inventory" Component={Inventory} />
                 </Routes>
         </div>
     </div>

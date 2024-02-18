@@ -16,6 +16,9 @@ export default function Navbar() {
         <li>
           <Link to="/register">R E G I S T E R</Link>
         </li>
+        <li>
+          <Link to="/inventory">I N V E N T O R Y</Link>
+        </li>
         <UserInformation />
       </ul>
     </nav>

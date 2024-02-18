@@ -1,0 +1,93 @@
+/* Containers */
+#inventory-container {
+    display: flex;
+    align-items: flex-start;
+    max-width: 100%;
+    padding-top:10px;
+
+}
+
+#inventory-list-container {
+    width: 25%;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+  
+  /* Inventory List */
+#inventory-list {
+    /* width: 50%; */
+    max-width: calc(100%);
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+#inventory-list h1 {
+    margin-bottom: 10px;
+}
+
+#inventory-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#inventory-list li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#inventory-list li:hover {
+    background-color: #e0e0e0;
+}
+  
+  /* Input and Button */
+.input-item-name {
+    margin-right: 10px;
+    max-width: calc(100%);
+}
+
+#btn-add-item {
+    margin-top: 10px;
+}
+  
+  /* Item Details */
+#item-details {
+    flex-grow: 1;
+    width: 30%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+}
+
+.input-item-price,
+  .input-item-quantity {
+    margin-bottom: 10px;
+}
+
+#btn-save-item {
+    margin-top: 10px;
+}
+  
+/* Sales maybe */
+#sales {
+    width: 30%;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    /* background-color: #f3f3f3; */
+}
+
+#sales h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+#sales p {
+    font-size: 16px;
+    color: #666;
+}
