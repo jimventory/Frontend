@@ -1,0 +1,50 @@
+#businessRegistrationPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#businessRegistrationForm {
+    width: 40vh;
+    height: 40vh;
+    margin-top: -10vh;
+
+    background-color: white;
+    border: 3px solid #573280;
+    border-radius: 15px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#businessRegistrationForm h2 {
+    color: #23022E;
+    font-size: 2.5rem;
+    padding: 0;
+    margin-top: 0;
+}
+
+#businessRegistrationForm label {
+    color: #23022E;
+    margin-top: 10px;
+}
+
+#businessRegistrationForm label:last-of-type {
+    margin-top: 50px;
+}
+
+.registerButton {
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 18px; /* Adjust font size as needed */
+    background-color: #573280; /* Button background */
+    color: #ADA8B6; /* text */
+    border: none;
+    cursor: pointer; /* Change cursor on hover */
+
+    margin-top: auto;
+    margin-bottom: 2vh;
+  }
