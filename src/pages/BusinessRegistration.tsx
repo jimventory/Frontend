@@ -1,7 +1,10 @@
+import BusinessRegistrationForm from "../components/BusinessRegistrationForm";
+import '../stylesheets/BusinessRegistration.css'
+
 export default function BusinessRegistration() {
     return (
         <div id="businessRegistrationPage">
-            <h1>Register a Business</h1>
+            <BusinessRegistrationForm />
         </div>
     );
 }
