@@ -26,7 +26,7 @@ export default function InventoryManagement() {
     .catch(error => {
         console.log(error);
     })  
-  }, [items]);
+  }, []);
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
