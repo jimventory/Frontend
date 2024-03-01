@@ -85,11 +85,9 @@ export default function InventoryManagement() {
   const handleSaveItem = async () => {
     if (selectedItem) {
       try {
-        const updatedItem = {
-          id: selectedItem.id,
-          price: itemPrice,
-          quantity: itemQuantity,
-        };
+        const updatedItem = selectedItem;
+        updatedItem.price = itemPrice;
+        updatedItem.quantity = itemQuantity;
 
         const response = await fetch(`${inventoryApi}update/`, {
           method: 'PUT',
