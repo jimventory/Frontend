@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../stylesheets/Inventory.css";
 
 // used for temp unique item ids
@@ -14,7 +14,19 @@ export default function InventoryManagement() {
   const [itemPrice, setItemPrice] = useState<number>(0.0);
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [itemId, setItemId] = useState<number | null>(null);
+  const inventoryApi = "https://localhost:7079/api/inventory/";
+  const hardCodedBusinessId = 10;
   
+  useEffect( () => {
+    fetch(`${inventoryApi}getInventory/${hardCodedBusinessId}`)
+    .then( response => response.json())
+    .then( data => {
+        setItems(data);
+    })
+    .catch(error => {
+        console.log(error);
+    })  
+  }, [items]);
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
@@ -33,10 +45,10 @@ export default function InventoryManagement() {
           about: itemAbout,
           price: itemPrice,
           quantity: itemQuantity,
-          businessId: 10, // Set BusinessId to 10, just something random I picked till we get that part set up more
+          businessId: hardCodedBusinessId, // Set BusinessId to 10, just something random I picked till we get that part set up more
         };
   
-        const response = await fetch('https://localhost:7079/api/inventory/add', {
+        const response = await fetch(`${inventoryApi}add`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -79,7 +91,7 @@ export default function InventoryManagement() {
           quantity: itemQuantity,
         };
 
-        const response = await fetch(`https://localhost:7079/api/inventory/update/`, {
+        const response = await fetch(`${inventoryApi}update/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -104,7 +116,7 @@ export default function InventoryManagement() {
     if (selectedItem) {
       if (window.confirm("Are you sure you want to delete this item?")) {
         try {
-          const response = await fetch(`https://localhost:7079/api/inventory/remove/${itemId}`, {
+          const response = await fetch(`${inventoryApi}remove/${itemId}`, {
             method: 'DELETE',
           });
           if (response.ok) {
