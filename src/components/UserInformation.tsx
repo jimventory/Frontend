@@ -13,10 +13,9 @@ export default function UserInformation() {
 
     return (
         ((isAuthenticated) && (
-            <div id="userInfoContainer">
-                <h4>{user?.name?.split('@')[0]}</h4>
-            </div>
-        
+            <>
+                {user?.name?.split('@')[0]}
+            </>
         )) || (
             <LoginButton/>
         )
