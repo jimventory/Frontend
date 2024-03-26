@@ -11,6 +11,9 @@ export default function Navbar() {
       </Link>
       <ul>
         <li>
+            <Link to="/authTest">TestAuth</Link>
+        </li>
+        <li>
           <Link to="/about">A B O U T</Link>
         </li>
         <li>

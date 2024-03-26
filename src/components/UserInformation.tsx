@@ -8,7 +8,9 @@ export default function UserInformation() {
     const { user, isAuthenticated, isLoading } = useAuth0();
 
     if (isLoading) {
-        return <div>?</div>
+        return (<div>
+            ?
+        </div>)
     }
 
     return (
