@@ -14,6 +14,9 @@ export default function Navbar() {
       <div className="right-side">
       <ul>
         <li>
+            <Link to="/authTest">TestAuth</Link>
+        </li>
+        <li>
           <Link to="/about">A B O U T</Link>
         </li>
         <li>

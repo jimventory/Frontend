@@ -5,6 +5,7 @@ import About from './pages/About';
 import BusinessRegistration from './pages/BusinessRegistration';
 import Landing from './pages/Landing';
 import Inventory from './pages/Inventory';
+import TestAuthPage from './pages/TestAuthPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <div id="pageContainer">
             <Routes>
                     <Route path="/" Component={Landing} />
+                    <Route path="/authTest" Component={TestAuthPage}/>
                     <Route path="/register" Component={BusinessRegistration} />
                     <Route path="/about" Component={About} />
                     <Route path="/inventory" Component={Inventory} />
