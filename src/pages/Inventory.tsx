@@ -17,10 +17,24 @@ export default function InventoryManagement() {
   const [itemId, setItemId] = useState<number | null>(null);
   const inventoryApi = "https://localhost:7079/api/inventory/";
   const hardCodedBusinessId = 10;
-  const { getAccessTokenSilently} = useAuth0();
+  const { user, getAccessTokenSilently} = useAuth0();
 
   const getToken = async () => { return await getAccessTokenSilently(); };
-  
+ 
+  const getBusinessId = () => {
+    if (user === null)
+        return;
+
+    if (user?.sub === undefined)
+        return;
+
+    const idString = user?.sub.split("|");
+    const idNumString = idString[1].substring(idString[1].length - 8);
+
+    const idNumUint = parseInt(idNumString, 16);
+    return idNumUint;
+  };
+
   useEffect( () => {
   getToken()
   .then(accessToken => {
@@ -42,7 +56,7 @@ export default function InventoryManagement() {
         console.log(error);
     })
   });
-  }, [getAccessTokenSilently]);
+  }, []);
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
@@ -61,27 +75,31 @@ export default function InventoryManagement() {
           about: itemAbout,
           price: itemPrice,
           quantity: itemQuantity,
-          businessId: hardCodedBusinessId, // Set BusinessId to 10, just something random I picked till we get that part set up more
+          businessId: getBusinessId(), // Set BusinessId to 10, just something random I picked till we get that part set up more
         };
-  
-        const response = await fetch(`${inventoryApi}add`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newItem),
+        
+        getToken()
+        .then(async (accessToken) => {
+            const response = await fetch(`${inventoryApi}add`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${accessToken}`
+              },
+              body: JSON.stringify(newItem),
+            });
+      
+            if (response.ok) {
+              const createdItem = await response.json();
+              setItems(prevItems => [...prevItems, createdItem]);
+              setItemName("");
+              setItemAbout("");
+              setItemPrice(0);
+              setItemQuantity(0);
+            } else {
+              console.error('Failed to add item:', response.statusText);
+            }
         });
-  
-        if (response.ok) {
-          const createdItem = await response.json();
-          setItems(prevItems => [...prevItems, createdItem]);
-          setItemName("");
-          setItemAbout("");
-          setItemPrice(0);
-          setItemQuantity(0);
-        } else {
-          console.error('Failed to add item:', response.statusText);
-        }
       } catch (error) {
         console.error('Error adding item:', error);
       }
