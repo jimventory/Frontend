@@ -18,9 +18,10 @@ export default function TestAuthPage() {
                 "Authorization": `Bearer ${accessToken}`
                 }
             })
-            .then(response => {
-                if (response.ok) alert("Success!");
-                });
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            });
         });
     }, [getAccessTokenSilently]);
 
