@@ -1,4 +1,3 @@
-
 #navbar {
     display: flex;
     height: 50px;
@@ -15,21 +14,17 @@
     height: auto;
 }
 
-/*
-#navbar h1 {
-    margin-left: 25px;
-}
-*/
-
-#navbar ul {
-    margin-right: 25px;
-    gap: 25px;
-    list-style: none;
-    display: flex;
-}
-
 #navbar li a,
 #navbar a h1 {
     text-decoration: none;
     color: #ADA8B6;
+}
+
+.right-side ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin-right: 25px;
+  justify-content: space-between;
+  align-items: center;
 }
