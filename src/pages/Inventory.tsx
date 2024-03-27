@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheets/Inventory.css";
+import { useAuth0 } from "@auth0/auth0-react"
 
 // used for temp unique item ids
 const generateRandomId = () => {
@@ -16,17 +17,32 @@ export default function InventoryManagement() {
   const [itemId, setItemId] = useState<number | null>(null);
   const inventoryApi = "https://localhost:7079/api/inventory/";
   const hardCodedBusinessId = 10;
+  const { getAccessTokenSilently} = useAuth0();
+
+  const getToken = async () => { return await getAccessTokenSilently(); };
   
   useEffect( () => {
-    fetch(`${inventoryApi}getInventory/${hardCodedBusinessId}`)
+  getToken()
+  .then(accessToken => {
+    fetch(`${inventoryApi}getInventory`, {
+        method: "GET",
+        headers: {
+        "Authorization": `Bearer ${accessToken}`
+    }})
     .then( response => response.json())
     .then( data => {
+        console.log(data);
+        if (data === null)
+            return;
         setItems(data);
+        console.log(items);
+        console.log(typeof items);
     })
     .catch(error => {
         console.log(error);
-    })  
-  }, []);
+    })
+  });
+  }, [getAccessTokenSilently]);
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(event.target.value);
