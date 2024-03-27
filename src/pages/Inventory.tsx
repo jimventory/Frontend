@@ -123,21 +123,25 @@ export default function InventoryManagement() {
         updatedItem.price = itemPrice;
         updatedItem.quantity = itemQuantity;
 
-        const response = await fetch(`${inventoryApi}update/`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedItem),
-        });
+        getToken()
+        .then(async (accessToken) => {
+            const response = await fetch(`${inventoryApi}update/`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${accessToken}`
+              },
+              body: JSON.stringify(updatedItem),
+            });
 
-        if (response.ok) {
-          // Update item in the local state
-          setItems(items.map(item => item.id === selectedItem.id ? { ...item, price: itemPrice, quantity: itemQuantity } : item));
-          alert('Item saved successfully!');
-        } else {
-          console.error('Failed to save item:', response.statusText);
-        }
+            if (response.ok) {
+              // Update item in the local state
+              setItems(items.map(item => item.id === selectedItem.id ? { ...item, price: itemPrice, quantity: itemQuantity } : item));
+              alert('Item saved successfully!');
+            } else {
+              console.error('Failed to save item:', response.statusText);
+            }
+        });
       } catch (error) {
         console.error('Error saving item:', error);
       }
@@ -148,16 +152,22 @@ export default function InventoryManagement() {
     if (selectedItem) {
       if (window.confirm("Are you sure you want to delete this item?")) {
         try {
-          const response = await fetch(`${inventoryApi}remove/${itemId}`, {
-            method: 'DELETE',
+          getToken()
+          .then(async (accessToken) => {
+              const response = await fetch(`${inventoryApi}remove/${itemId}`, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                }
+              });
+              if (response.ok) {
+                setItems(items.filter(item => item.id !== itemId));
+                setSelectedItem(null);
+                setItemId(null); // Reset itemId
+              } else {
+                console.error('Failed to delete item:', response.statusText);
+              }
           });
-          if (response.ok) {
-            setItems(items.filter(item => item.id !== itemId));
-            setSelectedItem(null);
-            setItemId(null); // Reset itemId
-          } else {
-            console.error('Failed to delete item:', response.statusText);
-          }
         } catch (error) {
           console.error('Error deleting item:', error);
         }
