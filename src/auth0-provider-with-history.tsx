@@ -30,6 +30,7 @@ export const Auth0ProviderWithHistory = ({
       authorizationParams={{
         audience: audience,
         redirect_uri: redirectUri,
+        cacheLocation: "localstorage"
       }}
       onRedirectCallback={onRedirectCallback}
     >
