@@ -1,16 +1,34 @@
 import "../stylesheets/BusinessRegistration.css"
 import React, { ChangeEvent, useState } from 'react';
+import { useAuth0 } from "@auth0/auth0-react"
 
 export default function BusinessRegistrationForm() {
 
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const registrationApi: string = "https://localhost:7079/api/business/register";
+    const { user, getAccessTokenSilently } = useAuth0();
 
     async function registerBusiness() {
+        if (user === null)
+            return;
+
+        if (user?.sub === undefined)
+            return;
+
+        console.log(user?.sub);
+
+        const idString = user?.sub.split("|");
+        const idNumString = idString[1].substring(idString[1].length - 8);
+        console.log(idNumString);
+        const idNumUint = parseInt(idNumString, 16);
+
+        console.log(`Id is ${idNumUint}`);
+
         let formData = {
             "Name" : name,
-            "Location": location
+            "Location": location,
+            Id: idNumUint,
         };
 
         console.log(JSON.stringify(formData));
