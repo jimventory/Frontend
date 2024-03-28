@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheets/Inventory.css";
+import { useAuth0 } from "@auth0/auth0-react"
 
 // used for temp unique item ids
 const generateRandomId = () => {
@@ -16,16 +17,45 @@ export default function InventoryManagement() {
   const [itemId, setItemId] = useState<number | null>(null);
   const inventoryApi = "https://localhost:7079/api/inventory/";
   const hardCodedBusinessId = 10;
-  
+  const { user, getAccessTokenSilently} = useAuth0();
+
+  const getToken = async () => { return await getAccessTokenSilently(); };
+ 
+  const getBusinessId = () => {
+    if (user === null)
+        return;
+
+    if (user?.sub === undefined)
+        return;
+
+    const idString = user?.sub.split("|");
+    const idNumString = idString[1].substring(idString[1].length - 8);
+
+    const idNumUint = parseInt(idNumString, 16);
+    return idNumUint;
+  };
+
   useEffect( () => {
-    fetch(`${inventoryApi}getInventory/${hardCodedBusinessId}`)
+  getToken()
+  .then(accessToken => {
+    fetch(`${inventoryApi}getInventory`, {
+        method: "GET",
+        headers: {
+        "Authorization": `Bearer ${accessToken}`
+    }})
     .then( response => response.json())
     .then( data => {
+        console.log(data);
+        if (data === null)
+            return;
         setItems(data);
+        console.log(items);
+        console.log(typeof items);
     })
     .catch(error => {
         console.log(error);
-    })  
+    })
+  });
   }, []);
 
   const handleInputNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,27 +75,31 @@ export default function InventoryManagement() {
           about: itemAbout,
           price: itemPrice,
           quantity: itemQuantity,
-          businessId: hardCodedBusinessId, // Set BusinessId to 10, just something random I picked till we get that part set up more
+          businessId: getBusinessId(), // Set BusinessId to 10, just something random I picked till we get that part set up more
         };
-  
-        const response = await fetch(`${inventoryApi}add`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newItem),
+        
+        getToken()
+        .then(async (accessToken) => {
+            const response = await fetch(`${inventoryApi}add`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${accessToken}`
+              },
+              body: JSON.stringify(newItem),
+            });
+      
+            if (response.ok) {
+              const createdItem = await response.json();
+              setItems(prevItems => [...prevItems, createdItem]);
+              setItemName("");
+              setItemAbout("");
+              setItemPrice(0);
+              setItemQuantity(0);
+            } else {
+              console.error('Failed to add item:', response.statusText);
+            }
         });
-  
-        if (response.ok) {
-          const createdItem = await response.json();
-          setItems(prevItems => [...prevItems, createdItem]);
-          setItemName("");
-          setItemAbout("");
-          setItemPrice(0);
-          setItemQuantity(0);
-        } else {
-          console.error('Failed to add item:', response.statusText);
-        }
       } catch (error) {
         console.error('Error adding item:', error);
       }
@@ -89,21 +123,25 @@ export default function InventoryManagement() {
         updatedItem.price = itemPrice;
         updatedItem.quantity = itemQuantity;
 
-        const response = await fetch(`${inventoryApi}update/`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedItem),
-        });
+        getToken()
+        .then(async (accessToken) => {
+            const response = await fetch(`${inventoryApi}update/`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${accessToken}`
+              },
+              body: JSON.stringify(updatedItem),
+            });
 
-        if (response.ok) {
-          // Update item in the local state
-          setItems(items.map(item => item.id === selectedItem.id ? { ...item, price: itemPrice, quantity: itemQuantity } : item));
-          alert('Item saved successfully!');
-        } else {
-          console.error('Failed to save item:', response.statusText);
-        }
+            if (response.ok) {
+              // Update item in the local state
+              setItems(items.map(item => item.id === selectedItem.id ? { ...item, price: itemPrice, quantity: itemQuantity } : item));
+              alert('Item saved successfully!');
+            } else {
+              console.error('Failed to save item:', response.statusText);
+            }
+        });
       } catch (error) {
         console.error('Error saving item:', error);
       }
@@ -114,16 +152,22 @@ export default function InventoryManagement() {
     if (selectedItem) {
       if (window.confirm("Are you sure you want to delete this item?")) {
         try {
-          const response = await fetch(`${inventoryApi}remove/${itemId}`, {
-            method: 'DELETE',
+          getToken()
+          .then(async (accessToken) => {
+              const response = await fetch(`${inventoryApi}remove/${itemId}`, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                }
+              });
+              if (response.ok) {
+                setItems(items.filter(item => item.id !== itemId));
+                setSelectedItem(null);
+                setItemId(null); // Reset itemId
+              } else {
+                console.error('Failed to delete item:', response.statusText);
+              }
           });
-          if (response.ok) {
-            setItems(items.filter(item => item.id !== itemId));
-            setSelectedItem(null);
-            setItemId(null); // Reset itemId
-          } else {
-            console.error('Failed to delete item:', response.statusText);
-          }
         } catch (error) {
           console.error('Error deleting item:', error);
         }

@@ -4,8 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
-
+import { Auth0ProviderWithHistory } from "./auth0-provider-with-history";
 // Google Font link
 const link = document.createElement("link");
 link.href =
@@ -20,13 +19,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Router>
-      <Auth0Provider
-        domain="dev-85peonfew8syv3it.us.auth0.com"
-        clientId="FdVf3LoTNyrGbRR5wSdZnIDrAo72jUS1"
-        authorizationParams={{ redirect_uri: window.location.origin }}
-      >
+      <Auth0ProviderWithHistory>
         <App />
-      </Auth0Provider>
+      </Auth0ProviderWithHistory>
     </Router>
   </React.StrictMode>
 );
