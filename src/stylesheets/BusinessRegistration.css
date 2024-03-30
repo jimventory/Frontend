@@ -6,11 +6,11 @@
 }
 
 #businessRegistrationForm {
-    width: 40vh;
-    height: 40vh;
+    width: 60vh;
+    height: 60vh;
     margin-top: -10vh;
 
-    background-color: white;
+    background-color: #23022E;
     border: 3px solid #573280;
     border-radius: 15px;
     
@@ -21,12 +21,13 @@
 }
 
 #businessRegistrationForm h2 {
-    color: #23022E;
+    color: #ADA8B6;
     font-size: 2.5rem;
+    text-align: center;
 }
 
 #businessRegistrationForm label {
-    color: #23022E;
+    color: #ADA8B6;
     margin-top: 10px;
 }
 
@@ -37,7 +38,7 @@
 .registerButton {
     font-family: 'Montserrat', sans-serif;
     padding: 10px 20px; /* Adjust padding as needed */
-    font-size: 18px; /* Adjust font size as needed */
+    font-size: 20px; /* Adjust font size as needed */
     background-color: #573280; /* Button background */
     color: #ADA8B6; /* text */
     border: none;
