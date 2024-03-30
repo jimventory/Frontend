@@ -1,0 +1,70 @@
+/* About.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.rectangle {
+  width: 300px; 
+  height: 300px; 
+  background-color: #23022E; 
+  margin-bottom: 50px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rectangle p {
+  color: #ADA8B6; 
+  font-size: 22px; 
+  line-height: 2.0; /* space in between lines of text */
+  font-family: Arial, sans-serif;
+}
+
+.left {
+  width: 75%; /* how far rectangle goes into page */
+  margin-right: auto; 
+  background: linear-gradient(to right, #23022E, #000000);
+}
+
+.right {
+  width: 75%;
+  margin-left: auto;
+  background: linear-gradient(to right, #000000, #23022E);
+}
+
+/*.left p strong {
+  font-size: 40px;
+  font-family: Arial, sans-serif; 
+}*/
+
+.extra-big {
+  font-size: 70px;
+  /*font-weight: bold;*/
+  font-family: Arial, sans-serif;
+}
+
+.text-wrapper {
+  text-align: left;
+  margin-left: 20px; /* Adjust the margin as needed */
+}
+
+.landing-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.button {
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px 20px; /* Adjust padding as needed */
+  margin: 0 20px; /* Adjust margin between buttons */
+  font-size: 18px; /* Adjust font size as needed */
+  background-color: #573280; /* Button background */
+  color: #ADA8B6; /* text */
+  border: none;
+  cursor: pointer; /* Change cursor on hover */
+}

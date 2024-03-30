@@ -3,6 +3,7 @@ I am not quite done, I want to make it ~10%
 cuter. and maybe less dramatic. */
 
 import React from "react";
+import { Link } from "react-router-dom";
 import "../stylesheets/Landing.css";
 import bigLogo from "../images/grayOnBlack.png";
 
@@ -23,8 +24,12 @@ const Landing = () => {
         <span> I M P L I F I E D .</span>
       </div>
       <div className="landing-buttons">
-        <button className="button">G E T&nbsp;&nbsp;S T A R T E D. </button>
-        <button className="button">L E A R N &nbsp;&nbsp;M O R E.</button>
+        <Link to="/register">
+          <button className="button">G E T&nbsp;&nbsp;S T A R T E D. </button>
+        </Link>
+        <Link to="/about">
+          <button className="button">L E A R N &nbsp;&nbsp;M O R E.</button>
+        </Link>
       </div>
       <div>
         <img
