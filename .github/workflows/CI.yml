@@ -11,7 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x]
+        # i changed this to just be 16.x, as that is what is currently installed on my mac.
 
     steps:
     - uses: actions/checkout@v3
