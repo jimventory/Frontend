@@ -1,19 +1,19 @@
 .loginlogout-button {
   border: none;
   border-radius: 4px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
   background-color: rgba(87, 50, 128, 1);
-  color: #ADA8B6;
+  color: #ada8b6;
   padding: 6px 20px 6px 20px;
 }
 
 .loginlogout-button:hover {
-  background-color: rgba(87, 50, 128, .7);
-  transition: .90;
+  background-color: rgba(87, 50, 128, 0.7);
+  transition: 0.9;
   cursor: pointer;
- }
- 
+}
+
 .loginlogout-button:active {
   transform: scale(0.98);
-}                                   
+}
