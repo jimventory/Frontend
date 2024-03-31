@@ -11,10 +11,10 @@ export const Auth0ProviderWithHistory = ({
 }: PropsWithChildren<Auth0ProviderWithConfigProps>): JSX.Element | null => {
   const navigate = useNavigate();
 
-  const domain="dev-85peonfew8syv3it.us.auth0.com";
-  const clientId="FdVf3LoTNyrGbRR5wSdZnIDrAo72jUS1";
-  const redirectUri=window.location.origin;
-  const audience = "https://localhost:7079/api" 
+  const domain = "dev-85peonfew8syv3it.us.auth0.com";
+  const clientId = "FdVf3LoTNyrGbRR5wSdZnIDrAo72jUS1";
+  const redirectUri = window.location.origin;
+  const audience = "https://localhost:7079/api";
   const onRedirectCallback = (appState?: AppState) => {
     navigate(appState?.returnTo || window.location.pathname);
   };
@@ -30,7 +30,7 @@ export const Auth0ProviderWithHistory = ({
       authorizationParams={{
         audience: audience,
         redirect_uri: redirectUri,
-        cacheLocation: "localstorage"
+        cacheLocation: "localstorage",
       }}
       onRedirectCallback={onRedirectCallback}
     >
@@ -38,4 +38,3 @@ export const Auth0ProviderWithHistory = ({
     </Auth0Provider>
   );
 };
-
