@@ -7,7 +7,7 @@ export default function BusinessRegistrationForm() {
   const [location, setLocation] = useState("");
   const registrationApi: string =
     "https://localhost:7079/api/business/register";
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { user } = useAuth0();
 
   async function registerBusiness() {
     if (user === null) return;

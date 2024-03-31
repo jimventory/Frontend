@@ -16,7 +16,6 @@ export default function InventoryManagement() {
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [itemId, setItemId] = useState<number | null>(null);
   const inventoryApi = "https://localhost:7079/api/inventory/";
-  const hardCodedBusinessId = 10;
   const { user, getAccessTokenSilently } = useAuth0();
 
   const getToken = async () => {
@@ -55,7 +54,7 @@ export default function InventoryManagement() {
           console.log(error);
         });
     });
-  }, []);
+  });
 
   const handleInputNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
