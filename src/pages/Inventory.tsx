@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../stylesheets/Inventory.css";
-import { useAuth0 } from "@auth0/auth0-react";
+import useInventory from "../hooks/useInventory";
+import { InventoryContext } from "../contexts/InventoryContext";
 
 // used for temp unique item ids
 const generateRandomId = () => {
@@ -16,45 +17,8 @@ export default function InventoryManagement() {
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [itemId, setItemId] = useState<number | null>(null);
   const inventoryApi = "https://localhost:7079/api/inventory/";
-  const { user, getAccessTokenSilently } = useAuth0();
 
-  const getToken = async () => {
-    return await getAccessTokenSilently();
-  };
-
-  const getBusinessId = () => {
-    if (user === null) return;
-
-    if (user?.sub === undefined) return;
-
-    const idString = user?.sub.split("|");
-    const idNumString = idString[1].substring(idString[1].length - 8);
-
-    const idNumUint = parseInt(idNumString, 16);
-    return idNumUint;
-  };
-
-  useEffect(() => {
-    getToken().then((accessToken) => {
-      fetch(`${inventoryApi}getInventory`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          if (data === null) return;
-          setItems(data);
-          console.log(items);
-          console.log(typeof items);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-  });
+  useInventory({setState : setItems});
 
   const handleInputNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -67,7 +31,7 @@ export default function InventoryManagement() {
   ) => {
     setItemAbout(event.target.value);
   };
-
+/*
   const handleAddItem = async () => {
     if (itemName.trim() !== "") {
       try {
@@ -106,7 +70,7 @@ export default function InventoryManagement() {
       }
     }
   };
-
+*/
   const handleItemClick = (item: Item) => {
     setSelectedItem(item);
     setItemId(item.id);
@@ -116,6 +80,10 @@ export default function InventoryManagement() {
     setItemQuantity(item.quantity);
   };
 
+  const handleAddItem = async () => {};
+  const handleDeleteItem = async () => {};
+  const handleSaveItem = async () => {};
+/*
   const handleSaveItem = async () => {
     if (selectedItem) {
       try {
@@ -178,8 +146,9 @@ export default function InventoryManagement() {
       }
     }
   };
-
+*/
   return (
+  <InventoryContext.Provider value={{items, setItems}}>
     <div id="inventory-container">
       <div id="inventory-list-container">
         <div id="inventory-list">
@@ -259,6 +228,7 @@ export default function InventoryManagement() {
         <h3>Sales?</h3>
       </div>
     </div>
+    </InventoryContext.Provider>
   );
 }
 
