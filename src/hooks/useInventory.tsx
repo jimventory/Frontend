@@ -1,36 +1,38 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from 'react';
 import { Item } from "../abstractions/Item"
-import useAccessToken from './useAccessToken';
-import useBusinessId from './useBusinessId';
 
 export default function useInventory() {
+    const { getAccessTokenSilently } = useAuth0();
     const [items, setItems] = useState<Item[]>([]);
-    const businessId = useBusinessId();
-    const accessToken = useAccessToken();
     const api = "https://localhost:7079/api/inventory/getInventory";
 
     useEffect(() => {
-        const headers = {
-            Authorization: `Bearer ${accessToken}`,
-        };
+        async function initializeInventory() {
+            const accessToken = await getAccessTokenSilently(); 
+            
+            const headers = {
+                Authorization: `Bearer ${accessToken}`,
+            };
 
-        const options = {
-            method: "GET",
-            headers: headers,    
-        };
+            const options = {
+                method: "GET",
+                headers: headers,    
+            };
 
-        fetch(api, options)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data === null)
-                return;
+            console.log(options);
 
+            const response = await fetch(api, options);
+
+            if (response.ok === false)
+                throw new Error("Failed to fetch inventory.")
+
+            const data = await response.json();
             setItems(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }, [businessId, accessToken]);
+        };
+
+        initializeInventory();
+    }, [getAccessTokenSilently]);
 
     return items;
 };
