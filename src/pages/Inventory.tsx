@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../stylesheets/Inventory.css";
 import useInventory from "../hooks/useInventory";
 import { InventoryContext } from "../contexts/InventoryContext";
+import AddItem from "../components/AddItemButton";
 
 // used for temp unique item ids
 const generateRandomId = () => {
@@ -160,18 +161,7 @@ export default function InventoryManagement() {
               </li>
             ))}
           </ul>
-          <div>
-            <input
-              type="text"
-              value={itemName}
-              onChange={handleInputNameChange}
-              placeholder="Enter Item Name"
-              className="input-item-name"
-            />
-            <button onClick={handleAddItem} className="btn-add-item">
-              Add Item
-            </button>
-          </div>
+          <AddItem/>
         </div>
       </div>
       <div id="item-details">
