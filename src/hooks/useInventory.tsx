@@ -1,18 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState, useEffect } from 'react';
-// import { Item } from "../abstractions/Item"
+import { Item } from "../abstractions/Item"
 
-interface Item {
-  id: number;
-  name: string;
-  about: string;
-  price: number;
-  quantity: number;
+interface useInventoryHookProps {
+    setState: React.Dispatch<React.SetStateAction<Item[]>>;
 }
 
-export default function useInventory() {
+export default function useInventory( {setState} : useInventoryHookProps) {
     const { getAccessTokenSilently } = useAuth0();
-    const [items, setItems] = useState<Item[]>([]);
     const api = "https://localhost:7079/api/inventory/getInventory";
 
     useEffect(() => {
@@ -39,17 +34,12 @@ export default function useInventory() {
 
             console.log("Response was ok.");
 
-            console.log(response);
-
             const data = await response.json();
-            setItems(data);
+            setState(data);
 
-            console.log(`Set items to be ${data}`);
-            console.log(items);
+            console.log("useInventory hook has updated items via setState.");
         };
 
         initializeInventory();
-    }, [getAccessTokenSilently]);
-
-    return items;
+    }, [getAccessTokenSilently, setState]);
 };
