@@ -32,47 +32,8 @@ export default function InventoryManagement() {
   ) => {
     setItemAbout(event.target.value);
   };
-/*
-  const handleAddItem = async () => {
-    if (itemName.trim() !== "") {
-      try {
-        const newItem = {
-          name: itemName,
-          id: generateRandomId(),
-          about: itemAbout,
-          price: itemPrice,
-          quantity: itemQuantity,
-          businessId: getBusinessId(), // Set BusinessId to 10, just something random I picked till we get that part set up more
-        };
-
-        getToken().then(async (accessToken) => {
-          const response = await fetch(`${inventoryApi}add`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(newItem),
-          });
-
-          if (response.ok) {
-            const createdItem = await response.json();
-            setItems((prevItems) => [...prevItems, createdItem]);
-            setItemName("");
-            setItemAbout("");
-            setItemPrice(0);
-            setItemQuantity(0);
-          } else {
-            console.error("Failed to add item:", response.statusText);
-          }
-        });
-      } catch (error) {
-        console.error("Error adding item:", error);
-      }
-    }
-  };
-*/
-  const handleItemClick = (item: Item) => {
+ 
+ const handleItemClick = (item: Item) => {
     setSelectedItem(item);
     setItemId(item.id);
     setItemName(item.name);
