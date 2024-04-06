@@ -3,6 +3,8 @@ import "../stylesheets/Inventory.css";
 import useInventory from "../hooks/useInventory";
 import { InventoryContext } from "../contexts/InventoryContext";
 import AddItemButton from "../components/AddItemButton";
+import InventoryList from "../components/InventoryList";
+import ItemDetails from "../components/ItemDetails";
 
 // used for temp unique item ids
 const generateRandomId = () => {
@@ -42,7 +44,6 @@ export default function InventoryManagement() {
     setItemQuantity(item.quantity);
   };
 
-  const handleAddItem = async () => {};
   const handleDeleteItem = async () => {};
   const handleSaveItem = async () => {};
 /*
@@ -110,74 +111,13 @@ export default function InventoryManagement() {
   };
 */
   return (
-  <InventoryContext.Provider value={{items, setItems}}>
+  <InventoryContext.Provider value={{items, setItems, selectedItem, setSelectedItem}}>
     <div id="inventory-container">
-      <div id="inventory-list-container">
-        <div id="inventory-list">
-          <h1>Inventory List</h1>
-          <ul>
-            {items.map((item, index) => (
-              <li key={index} onClick={() => handleItemClick(item)}>
-                {item.name}
-              </li>
-            ))}
-          </ul>
-          <AddItemButton/>
+        <InventoryList/>
+        <ItemDetails/>
+        <div id="sales">
+            <h3>Sales?</h3>
         </div>
-      </div>
-      <div id="item-details">
-        <h1>Item Details</h1>
-        {selectedItem && <p>Selected Item: {selectedItem.name}</p>}
-        <div>
-          <div>
-            <p>About:</p>
-            <p>ID: {itemId}</p>
-            <input
-              type="text"
-              value={itemAbout}
-              onChange={handleInputAboutChange}
-              placeholder="Enter Item Info"
-              className="input-item-about"
-            />
-          </div>
-          <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
-        </div>
-        <div>
-          <h3>Price: {itemPrice}</h3>
-          <h3>Quantity: {itemQuantity}</h3>
-        </div>
-        <div>
-          <label>
-            Price:
-            <input
-              type="number"
-              value={itemPrice}
-              onChange={(e) => setItemPrice(parseFloat(e.target.value))}
-              className="input-item-price"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Quantity:
-            <input
-              type="number"
-              value={itemQuantity}
-              onChange={(e) => setItemQuantity(parseInt(e.target.value))}
-              className="input-item-quantity"
-            />
-          </label>
-        </div>
-        <button onClick={handleSaveItem} id="btn-save-item">
-          Save Item
-        </button>
-        <button onClick={handleDeleteItem} id="btn-delete-item">
-          Delete Item
-        </button>
-      </div>
-      <div id="sales">
-        <h3>Sales?</h3>
-      </div>
     </div>
     </InventoryContext.Provider>
   );
