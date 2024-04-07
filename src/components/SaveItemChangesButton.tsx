@@ -4,7 +4,7 @@ import { Item } from "../abstractions/Item"
 import { InventoryContext } from "../contexts/InventoryContext"
 
 interface SaveItemChangesButtonProps {
-    item: Item 
+    item: Item | null 
 };
 
 export default function SaveItemChangesButton( { item } : SaveItemChangesButtonProps) {

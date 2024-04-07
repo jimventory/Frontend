@@ -1,10 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Item } from "../abstractions/Item";
 import { InventoryContext } from "../contexts/InventoryContext";
+import DeleteItemButton from "./DeleteItemButton";
+import SaveItemChangesButton from "./SaveItemChangesButton";
 
 export default function ItemDetails() {
-    const { selectedItem, setSelectedItem } = useContext(InventoryContext);
+    const { selectedItem } = useContext(InventoryContext);
     const [ copyItem, setCopyItem ] = useState<Item | null>(null);
+
+    useEffect(() => {
+        if (selectedItem === null)
+            return;
+
+        const copiedItem: Item = { ...selectedItem };
+        setCopyItem(copiedItem);
+    }, [selectedItem]);
 
     if (selectedItem === null) {
         return (
@@ -12,12 +22,29 @@ export default function ItemDetails() {
         );
     }
 
-    // Delete -- just to make errors go away while refactoring.
-    function handleSaveItem() { };
-    function handleDeleteItem() { };
-    function handleInputAboutChange(event: React.ChangeEvent<HTMLInputElement>) { };
-    function setItemPrice(price: number) { };
-    function setItemQuantity(quantity: number) { };
+    function handleInputAboutChange(event: React.ChangeEvent<HTMLInputElement>) {
+        if (copyItem === null)
+            return;
+
+        copyItem.about = event.target.value;
+        setCopyItem(copyItem);
+    };
+    
+    function setItemPrice(price: number) {
+        if (copyItem === null)
+            return;
+
+        copyItem.price = price;
+        setCopyItem(copyItem);
+    };
+    
+    function setItemQuantity(quantity: number) {
+        if (copyItem === null)
+            return;
+
+        copyItem.quantity = quantity;
+        setCopyItem(copyItem);
+    };
 
     return (
       <div id="item-details">
@@ -63,12 +90,8 @@ export default function ItemDetails() {
             />
           </label>
         </div>
-        <button onClick={handleSaveItem} id="btn-save-item">
-          Save Item
-        </button>
-        <button onClick={handleDeleteItem} id="btn-delete-item">
-          Delete Item
-        </button>
+       <SaveItemChangesButton item={copyItem}/>
+       <DeleteItemButton/>
       </div>
       );
 }
