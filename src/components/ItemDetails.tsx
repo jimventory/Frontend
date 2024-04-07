@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Item } from "../abstractions/Item";
 import { InventoryContext } from "../contexts/InventoryContext";
 
 export default function ItemDetails() {
     const { selectedItem, setSelectedItem } = useContext(InventoryContext);
+    const [ copyItem, setCopyItem ] = useState<Item | null>(null);
 
     if (selectedItem === null) {
         return (
@@ -12,11 +13,11 @@ export default function ItemDetails() {
     }
 
     // Delete -- just to make errors go away while refactoring.
-    function handleSaveItem(e: any) { };
-    function handleDeleteItem(e: any) { };
-    function handleInputAboutChange(e: any) { };
-    function setItemPrice(e: any) { };
-    function setItemQuantity(e: any) { };
+    function handleSaveItem() { };
+    function handleDeleteItem() { };
+    function handleInputAboutChange(event: React.ChangeEvent<HTMLInputElement>) { };
+    function setItemPrice(price: number) { };
+    function setItemQuantity(quantity: number) { };
 
     return (
       <div id="item-details">
