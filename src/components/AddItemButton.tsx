@@ -15,10 +15,9 @@ export default function AddItemButton() {
   };
 
   async function addItem() {
+    if (itemName === "")
+        return;
     try {
-        if (itemName === "")
-            return;
-
         const accessToken = await getAccessTokenSilently();
         
         console.log("Received access token.");
