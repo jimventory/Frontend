@@ -9,18 +9,20 @@ import { Item } from "../abstractions/Item";
 export default function InventoryManagement() {
   const [items, setItems] = useState<Item[]>([]);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-  
-  useInventory({setState : setItems});
+
+  useInventory({ setState: setItems });
 
   return (
-  <InventoryContext.Provider value={{items, setItems, selectedItem, setSelectedItem}}>
-    <div id="inventory-container">
-        <InventoryList/>
-        <ItemDetails/>
+    <InventoryContext.Provider
+      value={{ items, setItems, selectedItem, setSelectedItem }}
+    >
+      <div id="inventory-container">
+        <InventoryList />
+        <ItemDetails />
         <div id="sales">
-            <h3>Sales?</h3>
+          <h3>Sales?</h3>
         </div>
-    </div>
+      </div>
     </InventoryContext.Provider>
   );
 }

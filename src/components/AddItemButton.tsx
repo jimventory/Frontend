@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { InventoryContext } from "../contexts/InventoryContext";
 
 export default function AddItemButton() {
-  const { getAccessTokenSilently} = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const { setItems } = useContext(InventoryContext);
   const [itemName, setItemName] = useState<string>("");
   const inventoryApi = "https://localhost:7079/api/inventory/";
@@ -15,58 +15,58 @@ export default function AddItemButton() {
   };
 
   async function addItem() {
-    if (itemName === "")
-        return;
+    if (itemName === "") return;
     try {
-        const accessToken = await getAccessTokenSilently();
-        
-        console.log("Received access token.");
+      const accessToken = await getAccessTokenSilently();
 
-        const newItem = { name: itemName };
+      console.log("Received access token.");
 
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        };
+      const newItem = { name: itemName };
 
-        const options = {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(newItem),
-        };
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      };
 
-        const response = await fetch(`${inventoryApi}add`, options);
+      const options = {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(newItem),
+      };
 
-        console.log("Received response.");
+      const response = await fetch(`${inventoryApi}add`, options);
 
-        if (response.ok === false)
-            throw new Error("Response status bad, failed to add item.")
+      console.log("Received response.");
 
-        console.log("Response was good.");
+      if (response.ok === false)
+        throw new Error("Response status bad, failed to add item.");
 
-        const returnedItem = await response.json();
-        setItems((prevItems) => [...prevItems, returnedItem]);
-        setItemName("");
+      console.log("Response was good.");
 
-        console.log("Item has been inserted.");
+      const returnedItem = await response.json();
+      setItems((prevItems) => [...prevItems, returnedItem]);
+      setItemName("");
+
+      console.log("Item has been inserted.");
     } catch (e) {
-      alert("Something went wrong while trying to add your item.  Your changes were not saved.  We apologize.");
+      alert(
+        "Something went wrong while trying to add your item.  Your changes were not saved.  We apologize.",
+      );
     }
-  };
+  }
 
   return (
-  <div>
-            <input
-              type="text"
-              value={itemName}
-              onChange={handleInputNameChange}
-              placeholder="Enter Item Name"
-              className="input-item-name"
-            />
-            <button onClick={addItem} className="btn-add-item">
-              Add Item
-            </button>
-  </div>
+    <div>
+      <input
+        type="text"
+        value={itemName}
+        onChange={handleInputNameChange}
+        placeholder="Enter Item Name"
+        className="input-item-name"
+      />
+      <button onClick={addItem} className="btn-add-item">
+        Add Item
+      </button>
+    </div>
   );
-
-};
+}
