@@ -26,7 +26,7 @@ export default function DeleteItemButton() {
                 headers: headers,
             };
 
-            const response = await fetch(`${inventoryApi}delete/${selectedItem.id}`, options);
+            const response = await fetch(`${inventoryApi}remove/${selectedItem.id}`, options);
 
             if (response.ok === false)
                 throw new Error("Response status bad, failed to delete item.");
