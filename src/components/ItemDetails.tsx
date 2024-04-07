@@ -16,7 +16,7 @@ export default function ItemDetails() {
         setCopyItem(copiedItem);
     }, [selectedItem]);
 
-    if (selectedItem === null) {
+    if (selectedItem === null || copyItem === null) {
         return (
             <div></div>
         );
@@ -26,37 +26,48 @@ export default function ItemDetails() {
         if (copyItem === null)
             return;
 
-        copyItem.about = event.target.value;
-        setCopyItem(copyItem);
+        const modifiedObject = { ...copyItem };
+
+        modifiedObject.about = event.target.value;
+        setCopyItem(modifiedObject);
     };
     
     function setItemPrice(price: number) {
         if (copyItem === null)
             return;
 
-        copyItem.price = price;
-        setCopyItem(copyItem);
+        const modifiedObject = { ...copyItem };
+        
+        modifiedObject.price = price;
+        setCopyItem(modifiedObject);
     };
     
     function setItemQuantity(quantity: number) {
+        console.log('setItemQuantity called');
         if (copyItem === null)
             return;
 
-        copyItem.quantity = quantity;
-        setCopyItem(copyItem);
+        console.log('not null');
+
+        const modifiedObject = { ...copyItem };
+        
+        modifiedObject.quantity = quantity;
+        setCopyItem(modifiedObject);
+
+        console.log('updated qty');
     };
 
     return (
       <div id="item-details">
         <h1>Item Details</h1>
-        <p>Selected Item: {selectedItem.name}</p>
+        <p>Selected Item: {copyItem.name}</p>
         <div>
           <div>
             <p>About:</p>
-            <p>ID: {selectedItem.id}</p>
+            <p>ID: {copyItem.id}</p>
             <input
               type="text"
-              value={selectedItem.about}
+              value={copyItem.about}
               onChange={handleInputAboutChange}
               placeholder="Enter Item Info"
               className="input-item-about"
@@ -65,15 +76,15 @@ export default function ItemDetails() {
           <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
         </div>
         <div>
-          <h3>Price: {selectedItem.price}</h3>
-          <h3>Quantity: {selectedItem.quantity}</h3>
+          <h3>Price: {copyItem.price}</h3>
+          <h3>Quantity: {copyItem.quantity}</h3>
         </div>
         <div>
           <label>
             Price:
             <input
               type="number"
-              value={selectedItem.price}
+              value={copyItem.price}
               onChange={(e) => setItemPrice(parseFloat(e.target.value))}
               className="input-item-price"
             />
@@ -84,7 +95,7 @@ export default function ItemDetails() {
             Quantity:
             <input
               type="number"
-              value={selectedItem.quantity}
+              value={copyItem.quantity}
               onChange={(e) => setItemQuantity(parseInt(e.target.value))}
               className="input-item-quantity"
             />
