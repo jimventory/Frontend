@@ -10,42 +10,41 @@ export default function BusinessRegistrationForm() {
 
   async function registerBusiness() {
     try {
-        if (businessId === null)
-            throw new Error("Bad business Id.");
+      if (businessId === null) throw new Error("Bad business Id.");
 
-        // TODO:
-        // Currently, registration API is not authenticated.  In the future,
-        // this will need an access token.
-        const headers = {
-            "Content-Type": "application/json",
-        };
+      // TODO:
+      // Currently, registration API is not authenticated.  In the future,
+      // this will need an access token.
+      const headers = {
+        "Content-Type": "application/json",
+      };
 
-        // TODO:
-        // In the future, when authentication is added to business controller,
-        // we should consider removing the Id param from here.
-        // And instead have the backend assign it based on the claims.
-        const formData = {
-            Name: name,
-            Location: location,
-            Id: businessId,
-        };
+      // TODO:
+      // In the future, when authentication is added to business controller,
+      // we should consider removing the Id param from here.
+      // And instead have the backend assign it based on the claims.
+      const formData = {
+        Name: name,
+        Location: location,
+        Id: businessId,
+      };
 
-        const options = {
-            method: "PUT",
-            headers: headers,
-            body: JSON.stringify(formData),
-        };
+      const options = {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify(formData),
+      };
 
-        const response = await fetch(getFullPath(API_ROUTES.REGISTER), options);
+      const response = await fetch(getFullPath(API_ROUTES.REGISTER), options);
 
-        if (response.ok === false)
-            throw new Error("Failed to register business.");
+      if (response.ok === false)
+        throw new Error("Failed to register business.");
 
-        // If execution reaches here, we successfully registered the business.
+      // If execution reaches here, we successfully registered the business.
 
-        alert(`${name} has been registered!`);
+      alert(`${name} has been registered!`);
     } catch (e) {
-        alert(`Something went wrong trying to register ${name}.  We apologize.`);
+      alert(`Something went wrong trying to register ${name}.  We apologize.`);
     }
   }
 

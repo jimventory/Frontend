@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
 import { Item } from "../abstractions/Item";
 import { InventoryContext } from "../contexts/InventoryContext";
-import { getFullPath, API_ROUTES } from "../apis/inventory"; 
+import { getFullPath, API_ROUTES } from "../apis/inventory";
 
 interface SaveItemChangesButtonProps {
   item: Item | null;
@@ -11,8 +11,7 @@ interface SaveItemChangesButtonProps {
 export default function SaveItemChangesButton({
   item,
 }: SaveItemChangesButtonProps) {
-  const { items, setItems, selectedItem } =
-    useContext(InventoryContext);
+  const { items, setItems, selectedItem } = useContext(InventoryContext);
   const { getAccessTokenSilently } = useAuth0();
 
   async function handleSaveItemChanges() {
