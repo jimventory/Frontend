@@ -6,47 +6,47 @@ import SaveItemChangesButton from "./SaveItemChangesButton";
 
 export default function ItemDetails() {
   const { selectedItem } = useContext(InventoryContext);
-  const [copyItem, setCopyItem] = useState<Item | null>(null);
+  const [tempItem, setTempItem] = useState<Item | null>(null);
 
   useEffect(() => {
     if (selectedItem === null) return;
 
     const copiedItem: Item = { ...selectedItem };
-    setCopyItem(copiedItem);
+    setTempItem(copiedItem);
   }, [selectedItem]);
 
-  if (selectedItem === null || copyItem === null) {
+  if (selectedItem === null || tempItem === null) {
     return <div></div>;
   }
 
   function handleInputAboutChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (copyItem === null) return;
+    if (tempItem === null) return;
 
-    const modifiedObject = { ...copyItem };
+    const modifiedObject = { ...tempItem };
 
     modifiedObject.about = event.target.value;
-    setCopyItem(modifiedObject);
+    setTempItem(modifiedObject);
   }
 
   function setItemPrice(price: number) {
-    if (copyItem === null) return;
+    if (tempItem === null) return;
 
-    const modifiedObject = { ...copyItem };
+    const modifiedObject = { ...tempItem };
 
     modifiedObject.price = price;
-    setCopyItem(modifiedObject);
+    setTempItem(modifiedObject);
   }
 
   function setItemQuantity(quantity: number) {
     console.log("setItemQuantity called");
-    if (copyItem === null) return;
+    if (tempItem === null) return;
 
     console.log("not null");
 
-    const modifiedObject = { ...copyItem };
+    const modifiedObject = { ...tempItem };
 
     modifiedObject.quantity = quantity;
-    setCopyItem(modifiedObject);
+    setTempItem(modifiedObject);
 
     console.log("updated qty");
   }
@@ -54,14 +54,14 @@ export default function ItemDetails() {
   return (
     <div id="item-details">
       <h1>Item Details</h1>
-      <p>Selected Item: {copyItem.name}</p>
+      <p>Selected Item: {tempItem.name}</p>
       <div>
         <div>
           <p>About:</p>
-          <p>ID: {copyItem.id}</p>
+          <p>ID: {tempItem.id}</p>
           <input
             type="text"
-            value={copyItem.about}
+            value={tempItem.about}
             onChange={handleInputAboutChange}
             placeholder="Enter Item Info"
             className="input-item-about"
@@ -70,15 +70,15 @@ export default function ItemDetails() {
         <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
       </div>
       <div>
-        <h3>Price: {copyItem.price}</h3>
-        <h3>Quantity: {copyItem.quantity}</h3>
+        <h3>Price: {tempItem.price}</h3>
+        <h3>Quantity: {tempItem.quantity}</h3>
       </div>
       <div>
         <label>
           Price:
           <input
             type="number"
-            value={copyItem.price}
+            value={tempItem.price}
             onChange={(e) => setItemPrice(parseFloat(e.target.value))}
             className="input-item-price"
           />
@@ -89,13 +89,13 @@ export default function ItemDetails() {
           Quantity:
           <input
             type="number"
-            value={copyItem.quantity}
+            value={tempItem.quantity}
             onChange={(e) => setItemQuantity(parseInt(e.target.value))}
             className="input-item-quantity"
           />
         </label>
       </div>
-      <SaveItemChangesButton item={copyItem} />
+      <SaveItemChangesButton item={tempItem} />
       <DeleteItemButton />
     </div>
   );
