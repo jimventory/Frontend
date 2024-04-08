@@ -25,21 +25,13 @@ export default function useInventory({ setState }: useInventoryHookProps) {
           headers: headers,
         };
 
-        console.log(options);
-
         const response = await fetch(getFullPath(API_ROUTES.GET), options);
-
-        console.log("Received response.");
 
         if (response.ok === false)
           throw new Error("Failed to fetch inventory.");
 
-        console.log("Response was ok.");
-
         const data = await response.json();
         setState(data);
-
-        console.log("useInventory hook has updated items via setState.");
       } catch (e) {
         // Let's just alert the user we weren't able to fetch their existing inventory.
         // Don't update the state or anything.
