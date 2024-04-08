@@ -1,51 +1,51 @@
 import "../stylesheets/BusinessRegistration.css";
 import React, { ChangeEvent, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { getFullPath, API_ROUTES } from "../apis/business";
+import useBusinessId from "../hooks/useBusinessId";
 
 export default function BusinessRegistrationForm() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const registrationApi: string =
-    "https://localhost:7079/api/business/register";
-  const { user } = useAuth0();
+  const businessId = useBusinessId();
 
   async function registerBusiness() {
-    if (user === null) return;
+    try {
+      if (businessId === null) throw new Error("Bad business Id.");
 
-    if (user?.sub === undefined) return;
-
-    console.log(user?.sub);
-
-    const idString = user?.sub.split("|");
-    const idNumString = idString[1].substring(idString[1].length - 8);
-    console.log(idNumString);
-    const idNumUint = parseInt(idNumString, 16);
-
-    console.log(`Id is ${idNumUint}`);
-
-    let formData = {
-      Name: name,
-      Location: location,
-      Id: idNumUint,
-    };
-
-    console.log(JSON.stringify(formData));
-
-    fetch(registrationApi, {
-      method: "PUT",
-      headers: {
+      // TODO:
+      // Currently, registration API is not authenticated.  In the future,
+      // this will need an access token.
+      const headers = {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.ok) alert("Registered.");
-        else throw new Error("Couldn't register");
-      })
-      .catch((error) => {
-        alert(error);
-      });
+      };
+
+      // TODO:
+      // In the future, when authentication is added to business controller,
+      // we should consider removing the Id param from here.
+      // And instead have the backend assign it based on the claims.
+      const formData = {
+        Name: name,
+        Location: location,
+        Id: businessId,
+      };
+
+      const options = {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify(formData),
+      };
+
+      const response = await fetch(getFullPath(API_ROUTES.REGISTER), options);
+
+      if (response.ok === false)
+        throw new Error("Failed to register business.");
+
+      // If execution reaches here, we successfully registered the business.
+
+      alert(`${name} has been registered!`);
+    } catch (e) {
+      alert(`Something went wrong trying to register ${name}.  We apologize.`);
+    }
   }
 
   function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
