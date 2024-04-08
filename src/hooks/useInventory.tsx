@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 import { Item } from "../abstractions/Item";
+import { getFullPath, API_ROUTES } from "../apis/inventory";
 
 interface useInventoryHookProps {
   setState: React.Dispatch<React.SetStateAction<Item[]>>;
@@ -8,7 +9,6 @@ interface useInventoryHookProps {
 
 export default function useInventory({ setState }: useInventoryHookProps) {
   const { getAccessTokenSilently } = useAuth0();
-  const api = "https://localhost:7079/api/inventory/getInventory";
 
   // Arrow functions and their consequences have been a disaster for source code legibility.
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function useInventory({ setState }: useInventoryHookProps) {
 
         console.log(options);
 
-        const response = await fetch(api, options);
+        const response = await fetch(getFullPath(API_ROUTES.GET), options);
 
         console.log("Received response.");
 

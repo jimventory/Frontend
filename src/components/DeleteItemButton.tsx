@@ -1,12 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
 import { InventoryContext } from "../contexts/InventoryContext";
+import { getFullPath, API_ROUTES } from "../apis/inventory";
 
 export default function DeleteItemButton() {
   const { items, setItems, selectedItem, setSelectedItem } =
     useContext(InventoryContext);
   const { getAccessTokenSilently } = useAuth0();
-  const inventoryApi = "https://localhost:7079/api/inventory/";
 
   async function handleDeleteItem() {
     if (selectedItem === null) return;
@@ -31,7 +31,7 @@ export default function DeleteItemButton() {
       };
 
       const response = await fetch(
-        `${inventoryApi}remove/${selectedItem.id}`,
+        `${getFullPath(API_ROUTES.DELETE)}/${selectedItem.id}`,
         options,
       );
 

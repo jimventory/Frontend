@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
 import { Item } from "../abstractions/Item";
 import { InventoryContext } from "../contexts/InventoryContext";
+import { getFullPath, API_ROUTES } from "../apis/inventory"; 
 
 interface SaveItemChangesButtonProps {
   item: Item | null;
@@ -10,10 +11,9 @@ interface SaveItemChangesButtonProps {
 export default function SaveItemChangesButton({
   item,
 }: SaveItemChangesButtonProps) {
-  const { items, setItems, selectedItem, setSelectedItem } =
+  const { items, setItems, selectedItem } =
     useContext(InventoryContext);
   const { getAccessTokenSilently } = useAuth0();
-  const inventoryApi = "https://localhost:7079/api/inventory/";
 
   async function handleSaveItemChanges() {
     if (item === null) return;
@@ -34,7 +34,7 @@ export default function SaveItemChangesButton({
         body: JSON.stringify(item),
       };
 
-      const response = await fetch(`${inventoryApi}update`, options);
+      const response = await fetch(getFullPath(API_ROUTES.SAVE), options);
 
       if (response.ok === false) throw new Error("Failed to update item.");
 

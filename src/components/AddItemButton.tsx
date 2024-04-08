@@ -1,12 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext, useState } from "react";
 import { InventoryContext } from "../contexts/InventoryContext";
+import { getFullPath, API_ROUTES } from "../apis/inventory";
 
 export default function AddItemButton() {
   const { getAccessTokenSilently } = useAuth0();
   const { setItems } = useContext(InventoryContext);
   const [itemName, setItemName] = useState<string>("");
-  const inventoryApi = "https://localhost:7079/api/inventory/";
 
   const handleInputNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -34,7 +34,7 @@ export default function AddItemButton() {
         body: JSON.stringify(newItem),
       };
 
-      const response = await fetch(`${inventoryApi}add`, options);
+      const response = await fetch(getFullPath(API_ROUTES.ADD), options);
 
       console.log("Received response.");
 
