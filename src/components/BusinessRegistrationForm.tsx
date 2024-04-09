@@ -2,21 +2,23 @@ import "../stylesheets/BusinessRegistration.css";
 import React, { ChangeEvent, useState } from "react";
 import { getFullPath, API_ROUTES } from "../apis/business";
 import useBusinessId from "../hooks/useBusinessId";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function BusinessRegistrationForm() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const businessId = useBusinessId();
+  const { getAccessTokenSilently} = useAuth0();
 
   async function registerBusiness() {
     try {
       if (businessId === null) throw new Error("Bad business Id.");
 
-      // TODO:
-      // Currently, registration API is not authenticated.  In the future,
-      // this will need an access token.
+      const accessToken = await getAccessTokenSilently();
+
       const headers = {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       };
 
       // TODO:
