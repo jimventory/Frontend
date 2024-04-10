@@ -68,7 +68,7 @@ export default function ItemDetails() {
             className="input-item-about"
           />
         </div>
-        <ItemImage />
+        <ItemImage tempItem={tempItem} setTempItem={setTempItem}/>
       </div>
       <div>
         <h3>Price: {tempItem.price}</h3>
