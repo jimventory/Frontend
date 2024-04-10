@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Item } from "../abstractions/Item";
 import { InventoryContext } from "../contexts/InventoryContext";
 import DeleteItemButton from "./DeleteItemButton";
+import ItemImage from "./ItemImage";
 import SaveItemChangesButton from "./SaveItemChangesButton";
 
 export default function ItemDetails() {
@@ -67,7 +68,7 @@ export default function ItemDetails() {
             className="input-item-about"
           />
         </div>
-        <img src="https://via.placeholder.com/150" alt="Item Placeholder" />
+        <ItemImage tempItem={tempItem} setTempItem={setTempItem}/>
       </div>
       <div>
         <h3>Price: {tempItem.price}</h3>

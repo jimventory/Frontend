@@ -1,0 +1,12 @@
+#imageDropzone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: #23022e;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 150px;
+    height: 150px;
+}
