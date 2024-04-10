@@ -16,7 +16,9 @@ export const Auth0ProviderWithHistory = ({
   const redirectUri = window.location.origin;
   const audience = "https://localhost:7079/api";
   const onRedirectCallback = (appState?: AppState) => {
-    navigate(appState?.returnTo || window.location.pathname);
+    // navigate(appState?.returnTo || window.location.pathname);
+    const redirectUrl = 'loginredirect';
+    navigate(redirectUrl);
   };
 
   if (!(domain && clientId && redirectUri && audience)) {
