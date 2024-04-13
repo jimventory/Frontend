@@ -30,7 +30,7 @@ export default function Navbar() {
     }
 
     businessSetAndNavigate();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, businessCheck, navigate]);
 
   async function businessCheck() {
     try {
