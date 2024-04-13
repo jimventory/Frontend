@@ -8,11 +8,39 @@ import { getFullPath, API_ROUTES } from "../apis/business";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [isBusinessRegistered, setIsBusinessRegistered] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    async function businessCheck() {
+      try {
+        const accessToken = await getAccessTokenSilently();
+    
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+        };
+    
+        const options = {
+          method: "GET",
+          headers: headers,
+        };
+    
+        const response = await fetch(getFullPath(API_ROUTES.IS_REGISTERED), options);
+    
+        if (response.ok) {
+          console.log("Business is registered");
+          return true;
+        } else {
+          console.log("Business is not registered");
+          return false;
+        }
+      } catch (error) {
+        console.error("Error occurred while checking business registration:", error);
+        return false;
+      }
+    }
+
     async function businessSetAndNavigate() {
       try {
         if(isAuthenticated) {
@@ -31,35 +59,7 @@ export default function Navbar() {
     }
 
     businessSetAndNavigate();
-  }, [isAuthenticated]);
-
-  async function businessCheck() {
-    try {
-      const accessToken = await getAccessTokenSilently();
-  
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
-  
-      const options = {
-        method: "GET",
-        headers: headers,
-      };
-  
-      const response = await fetch(getFullPath(API_ROUTES.IS_REGISTERED), options);
-  
-      if (response.ok) {
-        console.log("Business is registered");
-        return true;
-      } else {
-        console.log("Business is not registered");
-        return false;
-      }
-    } catch (error) {
-      console.error("Error occurred while checking business registration:", error);
-      return false;
-    }
-  }
+  }, [isAuthenticated, getAccessTokenSilently, navigate]);
 
   return (
     <nav id="navbar">
