@@ -18,7 +18,6 @@ export default function Navbar() {
         if(isAuthenticated) {
           const isRegistered = await businessCheck();
           setIsBusinessRegistered(isRegistered);
-          console.log(isRegistered);
           if (isRegistered) {
             navigate("/inventory");
           } else {
