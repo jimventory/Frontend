@@ -5,7 +5,6 @@ import About from "./pages/About";
 import BusinessRegistration from "./pages/BusinessRegistration";
 import Landing from "./pages/Landing";
 import Inventory from "./pages/Inventory";
-import LoginRedirect from "./pages/LoginRedirect";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
           <Route path="/register" Component={BusinessRegistration} />
           <Route path="/about" Component={About} />
           <Route path="/inventory" Component={Inventory} />
-          <Route path="/loginredirect" Component={LoginRedirect} />
         </Routes>
       </div>
     </div>
