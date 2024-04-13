@@ -8,7 +8,7 @@ import { getFullPath, API_ROUTES } from "../apis/business";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [isBusinessRegistered, setIsBusinessRegistered] = useState(false);
   const navigate = useNavigate();
 
