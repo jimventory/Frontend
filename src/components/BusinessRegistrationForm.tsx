@@ -3,12 +3,14 @@ import React, { ChangeEvent, useState } from "react";
 import { getFullPath, API_ROUTES } from "../apis/business";
 import useBusinessId from "../hooks/useBusinessId";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 export default function BusinessRegistrationForm() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const businessId = useBusinessId();
   const { getAccessTokenSilently} = useAuth0();
+  const navigate = useNavigate();
 
   async function registerBusiness() {
     try {
@@ -45,6 +47,7 @@ export default function BusinessRegistrationForm() {
       // If execution reaches here, we successfully registered the business.
 
       alert(`${name} has been registered!`);
+      navigate("/inventory");
     } catch (e) {
       alert(`Something went wrong trying to register ${name}.  We apologize.`);
     }
