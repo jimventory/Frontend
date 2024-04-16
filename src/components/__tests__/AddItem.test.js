@@ -22,7 +22,9 @@ describe("Add Item Button Component", () => {
     expect(add).toBeInTheDocument();
   });
   
-  test("Test that the auth0 access token api is called", async () => {
+  test("Test that the auth0 access token api is called and fetch is called when the button is clicked", async () => {
+    global.fetch = jest.fn().mockResolvedValueOnce({ ok: false });
+    global.alert = jest.fn(); 
         
     render(<AddItemButton />);
   
@@ -31,8 +33,25 @@ describe("Add Item Button Component", () => {
     
     const add_button = screen.getByText(/Add Item/);
     fireEvent.click(add_button);
-    console.log("click");
-    await waitFor(() => {expect(useAuth0().getAccessTokenSilently).toHaveBeenCalled();}); 
+
+    await waitFor(() => {
+      expect(useAuth0().getAccessTokenSilently).toHaveBeenCalledTimes(1);
+      expect(fetch).toHaveBeenCalledTimes(1); 
+    }); 
+  });
+  
+  test("Test if Add Item returns if nothing is passed to it", async () => {
+    render(<AddItemButton />);
+    const itemNameInput = screen.getByPlaceholderText("Enter Item Name");
+    fireEvent.change(itemNameInput, { target: { value: "" } });
+    
+    const add_button = screen.getByText(/Add Item/);
+    fireEvent.click(add_button);
+
+    await waitFor(() => {
+      expect(useAuth0().getAccessTokenSilently).toHaveBeenCalledTimes(0); 
+    });
+
   });
 
 });
