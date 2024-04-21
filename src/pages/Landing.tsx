@@ -31,13 +31,6 @@ const Landing = () => {
           <button className="button">L E A R N &nbsp;&nbsp;M O R E.</button>
         </Link>
       </div>
-      <div>
-        <img
-          src={bigLogo}
-          className="bottom-pic"
-          alt="Shortened logo, S L"
-        ></img>
-      </div>
     </div>
   );
 };
