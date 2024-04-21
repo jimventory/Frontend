@@ -5,6 +5,8 @@ import About from "./pages/About";
 import BusinessRegistration from "./pages/BusinessRegistration";
 import Landing from "./pages/Landing";
 import Inventory from "./pages/Inventory";
+import LogoFooter from "./components/LogoFooter";
+import "./stylesheets/App.css";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/inventory" Component={Inventory} />
         </Routes>
       </div>
+      <LogoFooter />
     </div>
   );
 }

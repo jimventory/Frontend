@@ -1,0 +1,20 @@
+.logo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+
+.footer-pic {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: auto;
+}
+
+.logo-footer p{
+  color: gray;
+  font-size: 12px;
+}
+
