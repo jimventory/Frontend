@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { InventoryContext } from "../contexts/InventoryContext";
 import AddItemButton from "./AddItemButton";
+import ItemUpload from "./ItemUpload";
 
 export default function InventoryList() {
   const { items, setSelectedItem } = useContext(InventoryContext);
@@ -16,6 +17,7 @@ export default function InventoryList() {
         ))}
       </ul>
       <AddItemButton />
+      <ItemUpload/>
     </div>
   );
 }
