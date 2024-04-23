@@ -56,7 +56,7 @@ export default function AddItemButton() {
   }
 
   return (
-    <div>
+    <div id="add-item">
       <input
         type="text"
         value={itemName}

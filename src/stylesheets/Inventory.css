@@ -6,30 +6,27 @@
   padding-top: 10px;
 }
 
-#inventory-list-container {
-  width: 25%;
-  padding-right: 10px;
-  padding-left: 10px;
-  box-sizing: border-box;
-}
-
 /* Inventory List */
 #inventory-list {
-  /* width: 50%; */
-  max-width: calc(100%);
   padding: 15px;
   box-sizing: border-box;
   background-color: #f3f3f3;
   border-radius: 10px;
+  margin: 10px;
+  max-width: 30%;
 }
 
 #inventory-list h1 {
   margin-bottom: 10px;
+  text-align: center;
 }
 
 #inventory-list ul {
   list-style-type: none;
   padding: 0;
+  overflow-x: auto;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 #inventory-list li {
@@ -45,22 +42,30 @@
 }
 
 /* Input and Button */
-.input-item-name {
-  margin-right: 10px;
-  max-width: calc(100%);
+#add-item {
+  display: flex;
+  align-items: center;
+  margin: 5px;
 }
 
-#btn-add-item {
-  margin-top: 10px;
+.input-item-name {
+  flex: 1; 
 }
+
+.btn-add-item {
+  margin-left: 10px;
+  align-self: flex-end; 
+}
+
 
 /* Item Details */
 #item-details {
   flex-grow: 1;
-  width: 30%;
-  padding: 20px;
+  padding: 25px;
   box-sizing: border-box;
   background-color: #f3f3f3;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .input-item-price,
@@ -72,21 +77,19 @@
   margin-top: 10px;
 }
 
-/* Sales maybe */
-#sales {
-  width: 30%;
-  padding-right: 10px;
-  padding-left: 10px;
-  box-sizing: border-box;
-  /* background-color: #f3f3f3; */
+/* File Upload */
+#file-upload {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  margin: 5px;
 }
 
-#sales h1 {
-  font-size: 24px;
-  color: #333;
+#file-upload input[type="file"] {
+  flex: 1; /* Make input fill remaining space */
+  margin-right: 10px; /* Add some space between input and button */
 }
 
-#sales p {
-  font-size: 16px;
-  color: #666;
+#file-upload button {
+  align-self: flex-end; /* Align button to the end of the container */
+  margin-left: 10px;
 }

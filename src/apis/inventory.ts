@@ -5,6 +5,7 @@ export const API_ROUTES = {
   DELETE: "remove",
   ADD: "add",
   GET: "getInventory",
+  UPLOAD: "uploadInventory",
 };
 
 export function getFullPath(route: string) {
