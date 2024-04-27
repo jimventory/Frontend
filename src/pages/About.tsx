@@ -2,10 +2,12 @@
 page! I hope you like it! */
 
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import "../stylesheets/About.css";
 
 export default function About() {
+  const { loginWithRedirect } = useAuth0();
   return (
     <div className="container">
       <div className="rectangle left">
@@ -80,11 +82,9 @@ export default function About() {
           <br />
           <br />
           <div className="landing-buttons">
-            <Link to="/register">
-              <button className="button">
+              <button className="button" onClick={() => loginWithRedirect()}>
                 G E T&nbsp;&nbsp;S T A R T E D.{" "}
               </button>
-            </Link>
           </div>
         </p>
       </div>
