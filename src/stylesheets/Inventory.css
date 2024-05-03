@@ -93,3 +93,8 @@
   align-self: flex-end; /* Align button to the end of the container */
   margin-left: 10px;
 }
+
+#inventory-list ul li.lowStock {
+    background-color: #FF8488;
+    color: black;
+}

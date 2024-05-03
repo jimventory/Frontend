@@ -11,7 +11,7 @@ export default function InventoryList() {
       <h1>Inventory List</h1>
       <ul>
         {items.map((item, index) => (
-          <li key={index} onClick={() => setSelectedItem(item)}>
+          <li key={index} onClick={() => setSelectedItem(item)} className={item.quantity === 0 ? 'lowStock' : ''}>
             {item.name}
           </li>
         ))}
